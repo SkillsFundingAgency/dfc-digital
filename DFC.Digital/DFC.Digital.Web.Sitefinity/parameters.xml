@@ -44,7 +44,7 @@
              description="Tokenize the sitefinity authentication signing certificate to be replaced by hosting domain"
              defaultValue="__SitefinityAuthConfigSigningCertificate__">
 		<parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
-						match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/signingCertificate/add/@subjectName" />
+						match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/signingCertificate/@subjectName" />
 	</parameter>
 
   <!-- DataConfig configurations -->

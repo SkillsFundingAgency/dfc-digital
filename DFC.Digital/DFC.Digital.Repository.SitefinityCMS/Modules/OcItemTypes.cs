@@ -16,5 +16,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public const string ApprenticeshipStandard = "ApprenticeshipStandard";
         public const string WorkingPatternDetail = "WorkingPatternDetail";
         public const string WorkingHoursDetail = "WorkingHoursDetail";
+        public const string SOCCode = "SOCCode";
     }
 }

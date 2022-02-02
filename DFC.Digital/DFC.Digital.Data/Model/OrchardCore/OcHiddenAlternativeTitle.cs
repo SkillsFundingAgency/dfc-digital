@@ -27,6 +27,7 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public string Owner { get; set; }
         [JsonIgnore]
         public string Author { get; set; }
+        public Uniquetitlepart UniqueTitlePart { get; set; }
         public Titlepart TitlePart { get; set; }
         public Hiddenalternativetitle HiddenAlternativeTitle { get; set; }
         public Graphsyncpart GraphSyncPart { get; set; }

@@ -17,5 +17,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public const string LastModified = "LastModified";
         public const string PublicationDate = "PublicationDate";
         public const string DateCreated = "DateCreated";
+
+        // SOCCode
+        public const string SOCCode = "SOCCode";
+
+        // Description
+        public const string ONetOccupationalCode = "ONetOccupationalCode";
+        public const string Apprenticeshipstandards = "apprenticeshipstandards";
     }
 }

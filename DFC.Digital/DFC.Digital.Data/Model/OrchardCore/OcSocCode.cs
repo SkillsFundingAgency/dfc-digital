@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model.OrchardCore
 {
-
-    public class OcApprenticeshipStandard
+    public class OcSocCode
     {
         [JsonIgnore]
         public Guid SitefinityId { get; set; }
@@ -25,18 +24,49 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public string Author { get; set; }
         public Uniquetitlepart UniqueTitlePart { get; set; }
         public Titlepart TitlePart { get; set; }
-        public Apprenticeshipstandard ApprenticeshipStandard { get; set; }
+        public Soccode SOCCode { get; set; }
         public Graphsyncpart GraphSyncPart { get; set; }
         public Audittrailpart AuditTrailPart { get; set; }
     }
 
-    public class Apprenticeshipstandard
+    public class Soccode
     {
+        public Soccode()
+        {
+            ApprenticeshipStandards = new Apprenticeshipstandards();
+        }
         public OcDescriptionText Description { get; set; }
-        public Larscode LARScode { get; set; }
+        public Onetoccupationcode OnetOccupationCode { get; set; }
+        [JsonIgnore]
+        public ApprenticeshipstandardsSitefinity ApprenticeshipStandardsSitefinityIds { get; set; }
+        public Apprenticeshipstandards ApprenticeshipStandards { get; set; }
+        [JsonIgnore]
+        public SOC2020 SOC2020 { get; set; }
+        [JsonIgnore]
+        public Soc2020extension SOC2020extension { get; set; }
     }
 
-    public class Larscode
+    public class Onetoccupationcode
+    {
+        public string Text { get; set; }
+    }
+
+    public class ApprenticeshipstandardsSitefinity
+    {
+        public List<Guid> SitefinityIds { get; set; }
+    }
+
+    public class Apprenticeshipstandards
+    {
+        public string[] ContentItemIds { get; set; }
+    }
+
+    public class SOC2020
+    {
+        public string Text { get; set; }
+    }
+
+    public class Soc2020extension
     {
         public string Text { get; set; }
     }

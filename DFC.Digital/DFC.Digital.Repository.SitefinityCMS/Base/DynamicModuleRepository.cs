@@ -697,6 +697,61 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         #endregion Environment
 
+        #region SOCCode
+
+        public IEnumerable<OcSocCode> GetAllSOCCodes()
+        {
+            dynamicModuleContentType = TypeResolutionService.ResolveType(DynamicTypes.JobProfileSocContentType);
+            var dynamicModuleItems = dynamicModuleManager.GetDataItems(dynamicModuleContentType).Where(item => item.Status == ContentLifecycleStatus.Live && item.Visible);
+
+            if (dynamicModuleItems.Any())
+            {
+                var socCodes = new List<OcSocCode>();
+                foreach (var dynamicModuleItem in dynamicModuleItems)
+                {
+                    socCodes.Add(ConvertFromToSocCode(dynamicModuleItem));
+                }
+
+                return socCodes;
+            }
+
+            return Enumerable.Empty<OcSocCode>();
+        }
+
+        public OcSocCode ConvertFromToSocCode(DynamicContent content)
+        {
+            var relatedClasificationsApprenticeshipstandards = dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, SitefinityFields.Apprenticeshipstandards);
+            var socCode = new OcSocCode
+            {
+                SitefinityId = dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id),
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentItemVersionId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = OcItemTypes.SOCCode,
+                DisplayText = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.SOCCode),
+                Latest = true,
+                Published = true,
+                ModifiedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.LastModified),
+                PublishedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.PublicationDate),
+                CreatedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.DateCreated),
+                Owner = OrchardCoreFields.Owner,
+                Author = OrchardCoreFields.Author,
+                UniqueTitlePart = new Uniquetitlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.SOCCode) },
+                TitlePart = new Titlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.SOCCode) },
+                SOCCode = new Soccode()
+                {
+                    Description = new OcDescriptionText() { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Description) },
+                    OnetOccupationCode = new Onetoccupationcode() { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.ONetOccupationalCode) },
+                    ApprenticeshipStandardsSitefinityIds = new ApprenticeshipstandardsSitefinity() { SitefinityIds = relatedClasificationsApprenticeshipstandards.ToList() }
+                },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/soccode/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id)}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            };
+
+            return socCode;
+        }
+
+        #endregion SOCCode
+
         [IgnoreOutputInInterception]
         public DynamicContent GetById(string id)
         {

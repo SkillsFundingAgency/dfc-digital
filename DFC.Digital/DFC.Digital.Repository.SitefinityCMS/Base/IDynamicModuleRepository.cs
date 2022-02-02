@@ -67,5 +67,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         IEnumerable<OcLocation> GetAllLocations();
 
         IEnumerable<OcEnvironment> GetAllEnvironments();
+
+        IEnumerable<OcSocCode> GetAllSOCCodes();
     }
 }

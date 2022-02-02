@@ -4,6 +4,7 @@
     <div class="grid-row"><h3 style="text-align:center">Migration Tool</h3></div>
     <div style="text-align:center">
         <p>@Model.Message</p>
+        <p style="color:red">@Html.Raw(Model.ErrorMessage)</p>
         @using (Html.BeginForm("ContentItems", "MigrationTool", FormMethod.Post, new { id = "SelectItemType" }))
         {
             <select name="SelectedItemType" asp-for="@Model.SelectedItemType">
@@ -30,6 +31,8 @@
                 <option value="JobProfileSpecialism">19. JobProfile Specialism</option>
                 <option value="WorkingPatternDetails">20. Working Pattern Detail</option>
                 <option value="WorkingHoursDetails">21. Working Hours Details</option>
+                <option value="None">------</option>
+                <option value="JobProfileSoc">22. SOC Codes</option>
                 <option value="None">------</option>
                 <option value="JobProfile">XX. JobProfile</option>
             </select>
@@ -609,6 +612,31 @@
                             <td>@workingHoursDetail.SitefinityId</td>
                             <td>@workingHoursDetail.ContentItemId</td>
                             <td>@workingHoursDetail.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.SocCodes.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var socCodes in Model.SocCodes)
+                    {
+                        <tr>
+                            <td>@socCodes.SitefinityId</td>
+                            <td>@socCodes.ContentItemId</td>
+                            <td>@socCodes.DisplayText</td>
                         </tr>
                     }
                 </tbody>

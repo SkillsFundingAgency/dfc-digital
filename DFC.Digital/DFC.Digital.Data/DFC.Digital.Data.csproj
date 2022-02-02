@@ -231,6 +231,7 @@
     <Compile Include="Model\OrchardCore\OcLocation.cs" />
     <Compile Include="Model\OrchardCore\OcRegistration.cs" />
     <Compile Include="Model\OrchardCore\OcRestriction.cs" />
+    <Compile Include="Model\OrchardCore\OcSocCode.cs" />
     <Compile Include="Model\OrchardCore\OcText.cs" />
     <Compile Include="Model\OrchardCore\OcUniversityEntryRequirement.cs" />
     <Compile Include="Model\OrchardCore\OcUniversityLink.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="Model\OrchardCore\OcWorkingHoursDetail.cs" />
     <Compile Include="Model\OrchardCore\OcWorkingPattern.cs" />
     <Compile Include="Model\OrchardCore\OcWorkingPatternDetail.cs" />
+    <Compile Include="Model\OrchardCore\OrchardCoreFields.cs" />
     <Compile Include="Model\OrchardCore\Titlepart.cs" />
     <Compile Include="Model\OrchardCore\Uniform.cs" />
     <Compile Include="Model\OrchardCore\Uniquetitlepart.cs" />

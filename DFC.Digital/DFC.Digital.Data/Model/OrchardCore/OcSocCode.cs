@@ -12,6 +12,7 @@ namespace DFC.Digital.Data.Model.OrchardCore
         [JsonIgnore]
         public Guid SitefinityId { get; set; }
         public string ContentItemId { get; set; }
+        [JsonIgnore]
         public string ContentItemVersionId { get; set; }
         public string ContentType { get; set; }
         public string DisplayText { get; set; }
@@ -20,7 +21,9 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public DateTime ModifiedUtc { get; set; }
         public DateTime PublishedUtc { get; set; }
         public DateTime CreatedUtc { get; set; }
+        [JsonIgnore]
         public string Owner { get; set; }
+        [JsonIgnore]
         public string Author { get; set; }
         public Uniquetitlepart UniqueTitlePart { get; set; }
         public Titlepart TitlePart { get; set; }

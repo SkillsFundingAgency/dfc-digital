@@ -29,6 +29,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         private const string OwnerFieldName = "Owner";
         private const string PublicationDateFieldName = "PublicationDate";
         private const string DraftApprovalWorkflowState = "Draft";
+
         private static readonly OrchardCoreIdGenerator OrchardCoreIdGenerator = new OrchardCoreIdGenerator();
         private static readonly MappingRepository MappingToolRepository = new MappingRepository();
         private readonly IApplicationLogger applicationLogger;
@@ -725,7 +726,6 @@ namespace DFC.Digital.Repository.SitefinityCMS
             {
                 SitefinityId = dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id),
                 ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
-                ContentItemVersionId = OrchardCoreIdGenerator.GenerateUniqueId(),
                 ContentType = OcItemTypes.SOCCode,
                 DisplayText = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.SOCCode),
                 Latest = true,
@@ -733,8 +733,6 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 ModifiedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.LastModified),
                 PublishedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.PublicationDate),
                 CreatedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.DateCreated),
-                Owner = OrchardCoreFields.Owner,
-                Author = OrchardCoreFields.Author,
                 UniqueTitlePart = new Uniquetitlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.SOCCode) },
                 TitlePart = new Titlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.SOCCode) },
                 SOCCode = new Soccode()

@@ -240,7 +240,6 @@
     <Compile Include="Model\OrchardCore\OcWorkingHoursDetail.cs" />
     <Compile Include="Model\OrchardCore\OcWorkingPattern.cs" />
     <Compile Include="Model\OrchardCore\OcWorkingPatternDetail.cs" />
-    <Compile Include="Model\OrchardCore\OrchardCoreFields.cs" />
     <Compile Include="Model\OrchardCore\Titlepart.cs" />
     <Compile Include="Model\OrchardCore\Uniform.cs" />
     <Compile Include="Model\OrchardCore\Uniquetitlepart.cs" />

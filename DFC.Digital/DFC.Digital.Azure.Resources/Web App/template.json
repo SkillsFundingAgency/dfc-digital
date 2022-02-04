@@ -21,6 +21,9 @@
     "currentDatabaseName": {
       "type": "string"
     },
+    "SitefinityAuthConfigSigningCertificate": {
+      "type": "string"
+    },
     "MetaTagNoIndex": {
       "type": "string"
     },
@@ -57,10 +60,6 @@
               "name": "SearchIndexVersion",
               "value": "[parameters('searchIndexVersion')]"
             },
-            {
-              "name": "MetaTagNoIndex",
-              "value": "[parameters('MetaTagNoIndex')]"
-            },                  
             {
               "name": "WarmUpSlotSetting",
               "value": "App setting to facilitate slot warmup"

@@ -31,7 +31,7 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public Uniquetitlepart UniqueTitlePart { get; set; }
         public Titlepart TitlePart { get; set; }
         public Jobprofilecategory JobProfileCategory { get; set; }
-        public Pagelocationpart PageLocationPart { get; set; }
+        public PagelocationpartJpc PageLocationPart { get; set; }
         public Graphsyncpart GraphSyncPart { get; set; }
         public Audittrailpart AuditTrailPart { get; set; }
     }
@@ -41,7 +41,7 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public OcDescriptionText Description { get; set; }
     }
 
-    public class Pagelocationpart
+    public class PagelocationpartJpc
     {
         public string UrlName { get; set; }
         public bool DefaultPageForLocation { get; set; }

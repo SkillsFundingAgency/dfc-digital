@@ -9,8 +9,9 @@
         {
             <select name="SelectedItemType" asp-for="@Model.SelectedItemType">
                 <option value="">Select ContentType</option>
-                <option value="Registration">01. Registration</option>
-                <option value="Restriction">02. Restriction</option>
+                <option value="apprenticeship-standards">01. Apprenticeship Standard</option>
+                <option value="JobProfileSoc">02. SOC Codes</option>
+                <option value="None">------</option>
                 <option value="ApprenticeshipLink">03. ApprenticeshipLink</option>
                 <option value="CollegeLink">04. CollegeLink</option>
                 <option value="UniversityLink">05. UniversityLink</option>
@@ -20,21 +21,20 @@
                 <option value="Uniform">09. Uniform</option>
                 <option value="Location">10. Location</option>
                 <option value="Environment">11. Environment</option>
+                <option value="Registration">12. Registration</option>
+                <option value="Restriction">13. Restriction</option>
                 <option value="None">------</option>
-                <option value="HiddenAlternativeTitle">12. Hidden Alternative Title</option>
-                <option value="ApprenticeshipEntryRequirements">13. Apprenticeship Entry Requirements</option>
-                <option value="WorkingPattern">14. Working Pattern</option>
-                <option value="job-profile-categories">15. JobProfile Categories</option>
-                <option value="apprenticeship-standards">16. Apprenticeship Standard</option>
-                <option value="UniversityEntryRequirements">17. University Entry Requirements</option>
-                <option value="CollegeEntryRequirements">18. College Entry Requirements</option>
-                <option value="JobProfileSpecialism">19. JobProfile Specialism</option>
-                <option value="WorkingPatternDetails">20. Working Pattern Detail</option>
-                <option value="WorkingHoursDetails">21. Working Hours Details</option>
+                <option value="HiddenAlternativeTitle">14. Hidden Alternative Title</option>
+                <option value="ApprenticeshipEntryRequirements">15. Apprenticeship Entry Requirements</option>
+                <option value="WorkingPattern">16. Working Pattern</option>
+                <option value="job-profile-categories">17. JobProfile Categories</option>
+                <option value="UniversityEntryRequirements">18. University Entry Requirements</option>
+                <option value="CollegeEntryRequirements">19. College Entry Requirements</option>
+                <option value="JobProfileSpecialism">20. JobProfile Specialism</option>
+                <option value="WorkingPatternDetails">21. Working Pattern Detail</option>
+                <option value="WorkingHoursDetails">22. Working Hours Details</option>
                 <option value="None">------</option>
-                <option value="JobProfileSoc">22. SOC Codes</option>
-                <option value="None">------</option>
-                <option value="JobProfile">XX. JobProfile</option>
+                <option value="JobProfile">24. JobProfile</option>
             </select>
             <input type="submit" value="Submit">
         }
@@ -46,18 +46,18 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
                         <th>Title</th>
-                        <th>UrlName</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var jobProfile in Model.JobProfiles)
                     {
                         <tr>
-                            <td>@jobProfile.Id</td>
-                            <td>@jobProfile.Title</td>
-                            <td>@jobProfile.UrlName</td>
+                            <td>@jobProfile.SitefinityId</td>
+                            <td>@jobProfile.ContentItemId</td>
+                            <td>@jobProfile.DisplayText</td>
                         </tr>
                     }
                 </tbody>

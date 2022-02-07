@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using DFC.Digital.Data.Model.OrchardCore;
 using System;
 using System.Collections.Generic;
 
@@ -21,5 +22,9 @@ namespace DFC.Digital.Data.Interfaces
         RepoActionResult UpdateSocSkillMatrices(JobProfileOverloadForWhatItTakes jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices);
 
         IEnumerable<JobProfile> GetAllJobProfiles();
+
+        IEnumerable<JobProfileUrl> GetAllJobProfileUrls();
+
+        OcJobProfile GetJobProfileByUrlName(string urlName);
     }
 }

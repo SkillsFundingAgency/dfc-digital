@@ -36,7 +36,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
             WorkingPatternDetails = new List<OcWorkingPatternDetail>();
             WorkingHoursDetails = new List<OcWorkingHoursDetail>();
             SocCodes = new List<OcSocCode>();
-            JobProfiles = new List<JobProfile>();
+            JobProfiles = new List<OcJobProfile>();
         }
 
         public List<OcRegistration> Registrations { get; set; }
@@ -84,7 +84,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 
         public List<OcSocCode> SocCodes { get; set; }
 
-        public List<JobProfile> JobProfiles { get; set; }
+        public List<OcJobProfile> JobProfiles { get; set; }
 
         public string SelectedItemType { get; set; }
 

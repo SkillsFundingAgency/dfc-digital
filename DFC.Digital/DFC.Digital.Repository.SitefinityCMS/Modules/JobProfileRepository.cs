@@ -1,10 +1,14 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Data.Model.OrchardCore;
+using DFC.Digital.Repository.SitefinityCMS.Modules;
+using DFC.Digital.Repository.SitefinityCMS.OrchardCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
@@ -14,6 +18,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         private const string RelatedSkillField = "RelatedSkills";
         private const string UpdateComment = "Updated via the SkillsFramework import process";
+        private static readonly OrchardCoreIdGenerator OrchardCoreIdGenerator = new OrchardCoreIdGenerator();
         private readonly IDynamicModuleRepository<JobProfile> repository;
         private readonly IDynamicModuleRepository<SocSkillMatrix> socSkillRepository;
         private readonly IDynamicModuleConverter<JobProfile> converter;
@@ -174,6 +179,80 @@ namespace DFC.Digital.Repository.SitefinityCMS
             }
 
             return null;
+        }
+
+        public IEnumerable<JobProfileUrl> GetAllJobProfileUrls()
+        {
+            var jobProfilesDynamicContentItems = repository.GetMany(item => item.Status == ContentLifecycleStatus.Live && item.Visible).ToList();
+
+            if (jobProfilesDynamicContentItems.Any())
+            {
+                var jobProfileUrls = new List<JobProfileUrl>();
+
+                foreach (var jobProfilesDynamicContentItem in jobProfilesDynamicContentItems)
+                {
+                    jobProfileUrls.Add(ConvertFromToJobProfileUrl(jobProfilesDynamicContentItem));
+                }
+
+                return jobProfileUrls;
+            }
+
+            return Enumerable.Empty<JobProfileUrl>();
+        }
+
+        public JobProfileUrl ConvertFromToJobProfileUrl(DynamicContent content)
+        {
+            var jobProfileUrl = new JobProfileUrl
+            {
+                Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(JobProfileUrl.Id)),
+                Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileUrl.Title)),
+                UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileUrl.UrlName))
+            };
+
+            return jobProfileUrl;
+        }
+
+        public OcJobProfile GetJobProfileByUrlName(string urlName)
+        {
+            return ConvertDynamicContentToOcJobProfile(repository.Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
+        }
+
+        public OcJobProfile ConvertDynamicContentToOcJobProfile(DynamicContent content)
+        {
+            var relatedHiddenAlternativeTitles = dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, ItemTypes.HiddenAlternativeTitle);
+            var ocJobProfile = new OcJobProfile
+            {
+                SitefinityId = dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id),
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = ItemTypes.JobProfile,
+                DisplayText = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title),
+                Latest = true,
+                Published = true,
+                ModifiedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.LastModified),
+                PublishedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.PublicationDate),
+                CreatedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.DateCreated),
+                TitlePart = new Titlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title) },
+                JobProfile = new Jobprofile()
+                {
+                    AlternativeTitle = new Alternativetitle() { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.AlternativeTitle)) },
+                    WidgetContentTitle = new Widgetcontenttitle() { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.WidgetContentTitle)) },
+                    Overview = new Overview() { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Overview)) },
+                    Salarystarterperyear = new Salarystarterperyear() { Value = (float)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.SalaryStarter)) },
+                    Salaryexperiencedperyear = new Salaryexperiencedperyear() { Value = (float)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.SalaryExperienced)) },
+                    Minimumhours = new Minimumhours() { Value = (float)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MinimumHours)) },
+                    Maximumhours = new Maximumhours() { Value = (float)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MaximumHours)) },
+                    HiddenAlternativeTitleSf = relatedHiddenAlternativeTitles.ToList(),
+                    HiddenAlternativeTitle = new HiddenalternativetitleIds(),
+                },
+                PreviewPart = new Previewpart() { }, //????
+                PageLocationPart = new Pagelocationpart() { UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName), DefaultPageForLocation = false, RedirectLocations = null, FullUrl = $"/{dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName)}" },
+                SitemapPart = new Sitemappart() { OverrideSitemapConfig = false, ChangeFrequency = 0, Priority = 5, Exclude = false },
+                ContentApprovalPart = new Contentapprovalpart { ReviewStatus = 0, ReviewType = 0, IsForcePublished = false },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/jobprofile/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id)}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            };
+
+            return ocJobProfile;
         }
 
         #endregion IJobProfileRepository Implementations

@@ -213,6 +213,7 @@
     <Compile Include="Model\Oppurtunity.cs" />
     <Compile Include="Model\OrchardCore\ApprenticeshipEntryRequirement.cs" />
     <Compile Include="Model\OrchardCore\Audittrailpart.cs" />
+    <Compile Include="Model\OrchardCore\JobProfileUrl.cs" />
     <Compile Include="Model\OrchardCore\OcApprenticeshipStandard.cs" />
     <Compile Include="Model\OrchardCore\OcCollegeEntryRequirement.cs" />
     <Compile Include="Model\OrchardCore\OcDescriptionHtml.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="Model\OrchardCore\OcEnvironment.cs" />
     <Compile Include="Model\OrchardCore\OcHiddenAlternativeTitle.cs" />
     <Compile Include="Model\OrchardCore\OcInfoHtml.cs" />
+    <Compile Include="Model\OrchardCore\OcJobProfile.cs" />
     <Compile Include="Model\OrchardCore\OcJobProfileCategory.cs" />
     <Compile Include="Model\OrchardCore\OcJobProfileSpecialism.cs" />
     <Compile Include="Model\OrchardCore\OcLocation.cs" />

@@ -24,5 +24,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         // Description
         public const string ONetOccupationalCode = "ONetOccupationalCode";
         public const string Apprenticeshipstandards = "apprenticeshipstandards";
+
+        // JobProfile
+        public const string UrlName = "UrlName";
     }
 }

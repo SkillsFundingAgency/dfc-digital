@@ -213,6 +213,8 @@
     <Compile Include="Model\Oppurtunity.cs" />
     <Compile Include="Model\OrchardCore\ApprenticeshipEntryRequirement.cs" />
     <Compile Include="Model\OrchardCore\Audittrailpart.cs" />
+    <Compile Include="Model\OrchardCore\DigitalSkills.cs" />
+    <Compile Include="Model\OrchardCore\DynamicTitlePrefixes.cs" />
     <Compile Include="Model\OrchardCore\JobProfileUrl.cs" />
     <Compile Include="Model\OrchardCore\OcApprenticeshipStandard.cs" />
     <Compile Include="Model\OrchardCore\OcCollegeEntryRequirement.cs" />

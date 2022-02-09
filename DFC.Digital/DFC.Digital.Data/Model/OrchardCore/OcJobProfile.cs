@@ -28,9 +28,12 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public string Author { get; set; }
         public Titlepart TitlePart { get; set; }
         public Jobprofile JobProfile { get; set; }
+        [JsonIgnore]
         public Previewpart PreviewPart { get; set; }
         public Pagelocationpart PageLocationPart { get; set; }
+        [JsonIgnore]
         public Sitemappart SitemapPart { get; set; }
+        [JsonIgnore]
         public Contentapprovalpart ContentApprovalPart { get; set; }
         public Graphsyncpart GraphSyncPart { get; set; }
         public Audittrailpart AuditTrailPart { get; set; }
@@ -48,25 +51,51 @@ namespace DFC.Digital.Data.Model.OrchardCore
         [JsonIgnore]
         public List<Guid> HiddenAlternativeTitleSf { get; set; }
         public HiddenalternativetitleIds HiddenAlternativeTitle { get; set; }
+        [JsonIgnore]
+        public List<Guid> WorkingHoursDetailsSf { get; set; }
         public Workinghoursdetails WorkingHoursDetails { get; set; }
+        [JsonIgnore]
+        public List<Guid> WorkingPatternSf { get; set; }
         public Workingpattern WorkingPattern { get; set; }
+        [JsonIgnore]
+        public List<Guid> WorkingPatternDetailsSf { get; set; }
         public Workingpatterndetails WorkingPatternDetails { get; set; }
+        [JsonIgnore]
+        public List<Guid> JobProfileSpecialismSf { get; set; }
         public JobprofilespecialismIds JobProfileSpecialism { get; set; }
         public Entryroutes Entryroutes { get; set; }
         public Universityrelevantsubjects Universityrelevantsubjects { get; set; }
         public Universityfurtherrouteinfo Universityfurtherrouteinfo { get; set; }
+        [JsonIgnore]
+        public List<Guid> UniversityEntryRequirementsSf { get; set; }
         public UniversityentryrequirementsIds UniversityEntryRequirements { get; set; }
+        [JsonIgnore]
+        public List<Guid> RelatedUniversityRequirementsSf { get; set; }
         public Relateduniversityrequirements RelatedUniversityRequirements { get; set; }
         public Collegerelevantsubjects Collegerelevantsubjects { get; set; }
         public Collegefurtherrouteinfo Collegefurtherrouteinfo { get; set; }
+        [JsonIgnore]
+        public List<Guid> RelatedUniversityLinksSf { get; set; }
         public Relateduniversitylinks RelatedUniversityLinks { get; set; }
+        [JsonIgnore]
+        public List<Guid> CollegeEntryRequirementsSf { get; set; }
         public CollegeentryrequirementsIds CollegeEntryRequirements { get; set; }
+        [JsonIgnore]
+        public List<Guid> RelatedCollegeRequirementsSf { get; set; }
         public Relatedcollegerequirements RelatedCollegeRequirements { get; set; }
+        [JsonIgnore]
+        public List<Guid> RelatedCollegeLinksSf { get; set; }
         public Relatedcollegelinks RelatedCollegeLinks { get; set; }
         public Apprenticeshiprelevantsubjects Apprenticeshiprelevantsubjects { get; set; }
         public Apprenticeshipfurtherroutesinfo Apprenticeshipfurtherroutesinfo { get; set; }
+        [JsonIgnore]
+        public List<Guid> ApprenticeshipEntryRequirementsSf { get; set; }
         public ApprenticeshipentryrequirementsIds ApprenticeshipEntryRequirements { get; set; }
+        [JsonIgnore]
+        public List<Guid> RelatedApprenticeshipRequirementsSf { get; set; }
         public Relatedapprenticeshiprequirements RelatedApprenticeshipRequirements { get; set; }
+        [JsonIgnore]
+        public List<Guid> RelatedApprenticeshipLinksSf { get; set; }
         public Relatedapprenticeshiplinks RelatedApprenticeshipLinks { get; set; }
         public Work Work { get; set; }
         public Volunteering Volunteering { get; set; }
@@ -74,19 +103,36 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public Otherroutes Otherroutes { get; set; }
         public Careertips Careertips { get; set; }
         public Furtherinformation Furtherinformation { get; set; }
+        [JsonIgnore]
+        public List<Guid> RelatedrestrictionsSf { get; set; }
         public Relatedrestrictions Relatedrestrictions { get; set; }
         public Otherrequirements Otherrequirements { get; set; }
         public Digitalskills DigitalSkills { get; set; }
+        [JsonIgnore] // Needs Special attention, OC should generate the related skills
         public Relatedskills Relatedskills { get; set; }
+        //[JsonIgnore]
+        public List<Guid> JobProfileCategorySf { get; set; }
         public JobprofilecategoryIds JobProfileCategory { get; set; }
         public Daytodaytasks Daytodaytasks { get; set; }
+        //[JsonIgnore]
+        public List<Guid> RelatedLocationsSf { get; set; }
         public Relatedlocations RelatedLocations { get; set; }
+        //[JsonIgnore]
+        public List<Guid> RelatedEnvironmentsSf { get; set; }
         public Relatedenvironments RelatedEnvironments { get; set; }
+        //[JsonIgnore]
+        public List<Guid> RelatedUniformsSf { get; set; }
         public Relateduniforms RelatedUniforms { get; set; }
         public Coursekeywords Coursekeywords { get; set; }
         public Careerpathandprogression Careerpathandprogression { get; set; }
+        //[JsonIgnore]
+        public List<Guid> RelatedcareerprofilesSf { get; set; }
         public Relatedcareerprofiles Relatedcareerprofiles { get; set; }
+        //[JsonIgnore]
+        public List<Guid> SOCCodeSf { get; set; }
         public SoccodeIds SOCCode { get; set; }
+        //[JsonIgnore]
+        public List<Guid> RelatedRegistrationsSf { get; set; }
         public Relatedregistrations RelatedRegistrations { get; set; }
         public Professionalandindustrybodies Professionalandindustrybodies { get; set; }
         public Dynamictitleprefix DynamicTitlePrefix { get; set; }

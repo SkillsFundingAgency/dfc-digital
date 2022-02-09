@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
@@ -16,6 +17,10 @@ namespace DFC.Digital.Repository.SitefinityCMS
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
         IQueryable<DynamicContent> GetRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems);
+
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
+        IList<Guid> GetRelatedItemsIds(DynamicContent contentItem, string fieldName);
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]

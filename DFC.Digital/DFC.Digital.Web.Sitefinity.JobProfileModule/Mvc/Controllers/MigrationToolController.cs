@@ -184,6 +184,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     //model.JobProfiles = jobProfileRepository.GetAllJobProfiles().ToList();
                     //count = model.JobProfiles.Count;
                     model.JobProfiles = GetJobProfiles();
+                    model.ErrorMessage = ErrorMessage;
                     count = model.JobProfiles.Count;
                     break;
                 default:
@@ -851,53 +852,121 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var jobProfiles = new List<OcJobProfile>();
             var jobProfileUrls = jobProfileRepository.GetAllJobProfileUrls().OrderBy(jp => jp.Title).ToList();
-            int jobProfileUrlsCount = 3; // jobProfileUrls.Count();
+            int jobProfileUrlsCount = 5; // jobProfileUrls.Count();
 
             for (int i = 0; i < jobProfileUrlsCount; i++)
             {
                 var jobProfile = jobProfileRepository.GetJobProfileByUrlName(jobProfileUrls[i].UrlName);
 
-                var orchardCoreHiddenAlternativeTitleIds = new List<string>();
-                foreach (var sitefinityId in jobProfile.JobProfile.HiddenAlternativeTitleSf ?? new List<Guid>())
-                {
-                    var mappings = MappingToolRepository.GetMigrationMappingBySitefinityId(sitefinityId).ToList();
-                    if (mappings != null || mappings.Count() == 0)
-                    {
-                        if (mappings.Count() == 1)
-                        {
-                            orchardCoreHiddenAlternativeTitleIds.Add(mappings[0].OrchardCoreId);
-                        }
-                        else
-                        {
-                            orchardCoreHiddenAlternativeTitleIds.Add(mappings.FirstOrDefault().OrchardCoreId);
-                            ErrorMessage += $"Multiple mappings for JP -'{jobProfile.DisplayText}'-'{jobProfile.ContentItemId}' and SfId-'{sitefinityId}' - ContentType - 'HiddenAlternativeTitle': <br /> ";
-                            foreach (var mapping in mappings)
-                            {
-                                ErrorMessage += $"~ OrchardCoreId-'{mapping.OrchardCoreId}' and ContentType-'{mapping.ContentType}' <br />";
-                            }
-                        }
-                    }
-                    else
-                    {
-                        ErrorMessage += $"Could not pull any mappings for JP -'{jobProfile.DisplayText}'-'{jobProfile.ContentItemId}' and SfId-'{sitefinityId}' <br />";
-                    }
-                }
+                // HiddenAlternativeTitle
+                jobProfile.JobProfile.HiddenAlternativeTitle.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.HiddenAlternativeTitleSf, ItemTypes.HiddenAlternativeTitle);
 
-                jobProfile.JobProfile.HiddenAlternativeTitle.ContentItemIds = orchardCoreHiddenAlternativeTitleIds?.ToArray();
+                // WorkingHoursDetails
+                jobProfile.JobProfile.WorkingHoursDetails.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.WorkingHoursDetailsSf, OcItemTypes.WorkingHoursDetail);
 
-                var jsonData = JsonConvert.SerializeObject(jobProfile);
+                // WorkingPattern
+                jobProfile.JobProfile.WorkingPattern.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.WorkingPatternSf, ItemTypes.WorkingPattern);
 
-                //var jsonSocCodes = JsonConvert.DeserializeObject<List<OcJobProfile>>(jsonData);
+                // WorkingPatternDetails
+                jobProfile.JobProfile.WorkingPatternDetails.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.WorkingPatternDetailsSf, ItemTypes.WorkingPatternDetails);
+
+                // JobProfileSpecialism
+                jobProfile.JobProfile.JobProfileSpecialism.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.JobProfileSpecialismSf, ItemTypes.JobProfileSpecialism);
+
+                // UniversityEntryRequirements
+                jobProfile.JobProfile.UniversityEntryRequirements.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.UniversityEntryRequirementsSf, ItemTypes.UniversityEntryRequirements);
+
+                // UniversityRequirements
+                jobProfile.JobProfile.RelatedUniversityRequirements.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedUniversityRequirementsSf, ItemTypes.UniversityRequirement);
+
+                // UniversityLinks
+                jobProfile.JobProfile.RelatedUniversityLinks.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedUniversityLinksSf, ItemTypes.UniversityLink);
+
+                // CollegeEntryRequirements
+                jobProfile.JobProfile.CollegeEntryRequirements.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.CollegeEntryRequirementsSf, ItemTypes.CollegeEntryRequirements);
+
+                // CollegeRequirements
+                jobProfile.JobProfile.RelatedCollegeRequirements.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedCollegeRequirementsSf, ItemTypes.CollegeRequirement);
+
+                // CollegeLink
+                jobProfile.JobProfile.RelatedCollegeLinks.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedCollegeLinksSf, ItemTypes.CollegeLink);
+
+                // ApprenticeshipEntryRequirements
+                jobProfile.JobProfile.ApprenticeshipEntryRequirements.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.ApprenticeshipEntryRequirementsSf, ItemTypes.ApprenticeshipEntryRequirements);
+
+                // ApprenticeshipRequirements
+                jobProfile.JobProfile.RelatedApprenticeshipRequirements.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedApprenticeshipRequirementsSf, ItemTypes.ApprenticeshipRequirement);
+
+                // ApprenticeshipLinks
+                jobProfile.JobProfile.RelatedApprenticeshipLinks.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedApprenticeshipLinksSf, ItemTypes.ApprenticeshipLink);
+
+                // Restrictions
+                jobProfile.JobProfile.Relatedrestrictions.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedrestrictionsSf, ItemTypes.Restriction);
+
+                // JobProfileCategories
+                jobProfile.JobProfile.JobProfileCategory.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.JobProfileCategorySf, ItemTypes.JobProfileCategories);
+
+                // Locations
+                jobProfile.JobProfile.RelatedLocations.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedLocationsSf, ItemTypes.Location);
+
+                // Environments
+                jobProfile.JobProfile.RelatedEnvironments.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedEnvironmentsSf, ItemTypes.Environment);
+
+                // Uniforms
+                jobProfile.JobProfile.RelatedUniforms.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedUniformsSf, ItemTypes.Uniform);
+
+                // SOCCodes
+                jobProfile.JobProfile.SOCCode.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.SOCCodeSf, ItemTypes.JobProfileSoc);
+
+                // Registrations
+                jobProfile.JobProfile.RelatedRegistrations.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedRegistrationsSf, ItemTypes.Registration);
+
                 //MappingToolRepository.InsertMigrationMapping(jobProfile.SitefinityId, jobProfile.ContentItemId, ItemTypes.JobProfile);
-                var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-24-" + ItemTypes.JobProfile + $"-{i + 1}-" + jobProfile.DisplayText.Replace(" ", string.Empty) + ".json";
-                System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
-
                 jobProfiles.Add(jobProfile);
             }
 
-            // Replace RelatedCareers
-            // And then print the recipes for each Jobprofile
+            for (int i = 0; i < jobProfileUrlsCount; i++)
+            {
+                // Replace RelatedCareers
+
+                // And then print the recipes for each Jobprofile
+                var jsonData = JsonConvert.SerializeObject(jobProfiles[i]);
+                var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-24-" + ItemTypes.JobProfile + $"-{i + 1}-" + jobProfiles[i].DisplayText.Replace(" ", string.Empty) + ".json";
+                System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+            }
+
             return jobProfiles;
+        }
+
+        private string[] GetOrchardCoreIds(string jobProfileDisplayText, string jobProfileContentItemId, List<Guid> sitefinitiIds, string contentType)
+        {
+            var orchardCoreIds = new List<string>();
+            foreach (var sitefinityId in sitefinitiIds ?? new List<Guid>())
+            {
+                var mappings = MappingToolRepository.GetMigrationMappingBySitefinityId(sitefinityId).ToList();
+                if (mappings != null && mappings?.Count() != 0)
+                {
+                    if (mappings.Count() == 1)
+                    {
+                        orchardCoreIds.Add(mappings[0].OrchardCoreId);
+                    }
+                    else
+                    {
+                        orchardCoreIds.Add(mappings.FirstOrDefault().OrchardCoreId);
+                        ErrorMessage += $"Multiple mappings for JP -'{jobProfileDisplayText}'-'{jobProfileContentItemId}', SfId- '{sitefinityId}', JPContentType- '{contentType}': <br /> ";
+                        foreach (var mapping in mappings)
+                        {
+                            ErrorMessage += $"~ OrchardCoreId-'{mapping.OrchardCoreId}' and MappingContentType-'{mapping.ContentType}' <br />";
+                        }
+                    }
+                }
+                else
+                {
+                    ErrorMessage += $"Could not pull any mappings for JP -'{jobProfileDisplayText}'-'{jobProfileContentItemId}', SfId-'{sitefinityId}',  JPContentType- '{contentType}' <br />";
+                }
+            }
+
+            return orchardCoreIds.ToArray();
         }
 
         #endregion Private Methods -  - DynamicContentTypes - JobProfiles

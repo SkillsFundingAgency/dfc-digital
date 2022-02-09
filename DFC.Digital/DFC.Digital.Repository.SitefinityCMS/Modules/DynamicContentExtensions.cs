@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
@@ -36,6 +37,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 .GetRelatedItems<DynamicContent>(fieldName)
                 .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible)
                 .Take(maximumItemsToReturn);
+        }
+
+        // Migration Tool
+        public IList<Guid> GetRelatedItemsIds(DynamicContent contentItem, string fieldName)
+        {
+            var relatedItemsSitefinityIds = new List<Guid>();
+            var relatedItems = GetRelatedItems(contentItem, fieldName, 20);
+            if (relatedItems != null)
+            {
+                relatedItemsSitefinityIds = relatedItems.Select(item => item.Id).ToList();
+            }
+
+            return relatedItemsSitefinityIds;
         }
 
         public IEnumerable<DynamicContent> GetRelatedSearchItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems)

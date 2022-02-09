@@ -426,7 +426,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public IEnumerable<OcApprenticeshipRequirement> GetAllApprenticeshipRequirements()
         {
-            dynamicModuleContentType = TypeResolutionService.ResolveType(DynamicTypes.UniversityRequirementContentType);
+            dynamicModuleContentType = TypeResolutionService.ResolveType(DynamicTypes.ApprenticeshipRequirementContentType);
             var dynamicModuleItems = dynamicModuleManager.GetDataItems(dynamicModuleContentType).Where(item => item.Status == ContentLifecycleStatus.Live && item.Visible);
 
             if (dynamicModuleItems.Any())

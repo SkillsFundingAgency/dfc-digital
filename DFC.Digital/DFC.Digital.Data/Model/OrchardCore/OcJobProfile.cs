@@ -28,12 +28,9 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public string Author { get; set; }
         public Titlepart TitlePart { get; set; }
         public Jobprofile JobProfile { get; set; }
-        [JsonIgnore]
         public Previewpart PreviewPart { get; set; }
         public Pagelocationpart PageLocationPart { get; set; }
-        [JsonIgnore]
         public Sitemappart SitemapPart { get; set; }
-        [JsonIgnore]
         public Contentapprovalpart ContentApprovalPart { get; set; }
         public Graphsyncpart GraphSyncPart { get; set; }
         public Audittrailpart AuditTrailPart { get; set; }
@@ -108,30 +105,29 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public Relatedrestrictions Relatedrestrictions { get; set; }
         public Otherrequirements Otherrequirements { get; set; }
         public Digitalskills DigitalSkills { get; set; }
-        [JsonIgnore] // Needs Special attention, OC should generate the related skills
         public Relatedskills Relatedskills { get; set; }
-        //[JsonIgnore]
+        [JsonIgnore]
         public List<Guid> JobProfileCategorySf { get; set; }
         public JobprofilecategoryIds JobProfileCategory { get; set; }
         public Daytodaytasks Daytodaytasks { get; set; }
-        //[JsonIgnore]
+        [JsonIgnore]
         public List<Guid> RelatedLocationsSf { get; set; }
         public Relatedlocations RelatedLocations { get; set; }
-        //[JsonIgnore]
+        [JsonIgnore]
         public List<Guid> RelatedEnvironmentsSf { get; set; }
         public Relatedenvironments RelatedEnvironments { get; set; }
-        //[JsonIgnore]
+        [JsonIgnore]
         public List<Guid> RelatedUniformsSf { get; set; }
         public Relateduniforms RelatedUniforms { get; set; }
         public Coursekeywords Coursekeywords { get; set; }
         public Careerpathandprogression Careerpathandprogression { get; set; }
-        //[JsonIgnore]
+        [JsonIgnore]
         public List<Guid> RelatedcareerprofilesSf { get; set; }
         public Relatedcareerprofiles Relatedcareerprofiles { get; set; }
-        //[JsonIgnore]
+        [JsonIgnore]
         public List<Guid> SOCCodeSf { get; set; }
         public SoccodeIds SOCCode { get; set; }
-        //[JsonIgnore]
+        [JsonIgnore]
         public List<Guid> RelatedRegistrationsSf { get; set; }
         public Relatedregistrations RelatedRegistrations { get; set; }
         public Professionalandindustrybodies Professionalandindustrybodies { get; set; }

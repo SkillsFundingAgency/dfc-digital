@@ -66,6 +66,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Recipe End")]
         public string RecipeEnd { get; set; } = "}]}";
 
+        [DisplayName("Recipe Beginning Single")]
+        public string RecipeBeginningSingle { get; set; } = "{ \"name\": \"\", \"displayName\": \"\", \"description\": \"\", \"author\": \"\", \"website\": \"\", \"version\": \"\", \"issetuprecipe\": false, \"categories\": [], \"tags\": [],\"steps\": [{ \"name\": \"content\", \"data\": [";
+
+        [DisplayName("Recipe End Single")]
+        public string RecipeEndSingle { get; set; } = "]}]}";
+
         [DisplayName("Error Message")]
         public string ErrorMessage { get; set; }
 
@@ -852,7 +858,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var jobProfiles = new List<OcJobProfile>();
             var jobProfileUrls = jobProfileRepository.GetAllJobProfileUrls().OrderBy(jp => jp.Title).ToList();
-            int jobProfileUrlsCount = 5; // jobProfileUrls.Count();
+            int jobProfileUrlsCount = jobProfileUrls.Count();
 
             for (int i = 0; i < jobProfileUrlsCount; i++)
             {
@@ -921,27 +927,47 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 // Registrations
                 jobProfile.JobProfile.RelatedRegistrations.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedRegistrationsSf, ItemTypes.Registration);
 
-                //MappingToolRepository.InsertMigrationMapping(jobProfile.SitefinityId, jobProfile.ContentItemId, ItemTypes.JobProfile);
+                // Preserve SitefinityId & OrchardCoreId per JobProfile by storing them in the database
+                MappingToolRepository.InsertMigrationMapping(jobProfile.SitefinityId, jobProfile.ContentItemId, ItemTypes.JobProfile);
+
                 jobProfiles.Add(jobProfile);
             }
 
             for (int i = 0; i < jobProfileUrlsCount; i++)
             {
-                // Replace RelatedCareers
+                // Replace RelatedCareerProfiles SitefinityIds with OrchardCoreIds
+                //jobProfiles[i].JobProfile.Relatedcareerprofiles.ContentItemIds = GetOrchardCoreIds(jobProfiles[i].DisplayText, jobProfiles[i].ContentItemId, jobProfiles[i].JobProfile.RelatedcareerprofilesSf, ItemTypes.JobProfile);
+
+                // Restore original ContentItemId from the first run
+                //jobProfiles[i].ContentItemId = GetJobProfileContentItemId(jobProfiles[i].DisplayText, jobProfiles[i].ContentItemId, jobProfiles[i].SitefinityId, ItemTypes.JobProfile);
 
                 // And then print the recipes for each Jobprofile
                 var jsonData = JsonConvert.SerializeObject(jobProfiles[i]);
-                var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-24-" + ItemTypes.JobProfile + $"-{i + 1}-" + jobProfiles[i].DisplayText.Replace(" ", string.Empty) + ".json";
-                System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+                var fullPathAndFileName = JsonFilePath + "24-" + ItemTypes.JobProfile + $"-{i + 1}-" + jobProfiles[i].DisplayText.Replace(" ", string.Empty) + ".json";
+                System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginningSingle + jsonData + RecipeEndSingle);
+            }
+
+            // Split all JobProfiles into batches of
+            int batchSize = 10;
+            int numberOfFiles = jobProfileUrlsCount / batchSize;
+
+            for (int idx = 0; idx <= numberOfFiles; idx++)
+            {
+                var currentJobProfiles = jobProfiles.Skip(idx * batchSize).Take(batchSize).ToList();
+
+                var currentJsonData = JsonConvert.SerializeObject(currentJobProfiles);
+
+                var currentFullPathAndFileName = JsonFilePath + @"JobProfilesSplits\" + "24-" + ItemTypes.JobProfile + $"-{idx + 1}-" + currentJobProfiles.Count().ToString() + ".json";
+                System.IO.File.WriteAllText(currentFullPathAndFileName, RecipeBeginning + currentJsonData + RecipeEnd);
             }
 
             return jobProfiles;
         }
 
-        private string[] GetOrchardCoreIds(string jobProfileDisplayText, string jobProfileContentItemId, List<Guid> sitefinitiIds, string contentType)
+        private string[] GetOrchardCoreIds(string jobProfileDisplayText, string jobProfileContentItemId, List<Guid> sitefinityIds, string contentType)
         {
             var orchardCoreIds = new List<string>();
-            foreach (var sitefinityId in sitefinitiIds ?? new List<Guid>())
+            foreach (var sitefinityId in sitefinityIds ?? new List<Guid>())
             {
                 var mappings = MappingToolRepository.GetMigrationMappingBySitefinityId(sitefinityId).ToList();
                 if (mappings != null && mappings?.Count() != 0)
@@ -967,6 +993,35 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
 
             return orchardCoreIds.ToArray();
+        }
+
+        private string GetJobProfileContentItemId(string jobProfileDisplayText, string jobProfileContentItemId, Guid sitefinityId, string contentType)
+        {
+            var contentItemId = string.Empty;
+
+                var mappings = MappingToolRepository.GetMigrationMappingBySitefinityId(sitefinityId).ToList();
+                if (mappings != null && mappings?.Count() != 0)
+                {
+                    if (mappings.Count() == 1)
+                    {
+                        contentItemId = mappings[0].OrchardCoreId;
+                    }
+                    else
+                    {
+                        contentItemId = mappings.FirstOrDefault().OrchardCoreId;
+                        ErrorMessage += $"Multiple mappings for JP ContentItemId -'{jobProfileDisplayText}'-'{jobProfileContentItemId}', SfId- '{sitefinityId}', JPContentType- '{contentType}': <br /> ";
+                        foreach (var mapping in mappings)
+                        {
+                            ErrorMessage += $"~ OrchardCoreId-'{mapping.OrchardCoreId}' and MappingContentType-'{mapping.ContentType}' <br />";
+                        }
+                    }
+                }
+                else
+                {
+                    ErrorMessage += $"Could not pull any mappings for JP ContentItemId -'{jobProfileDisplayText}'-'{jobProfileContentItemId}', SfId-'{sitefinityId}',  JPContentType- '{contentType}' <br />";
+                }
+
+            return contentItemId;
         }
 
         #endregion Private Methods -  - DynamicContentTypes - JobProfiles

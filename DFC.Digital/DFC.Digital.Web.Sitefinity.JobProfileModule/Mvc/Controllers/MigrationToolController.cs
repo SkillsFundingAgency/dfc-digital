@@ -11,6 +11,7 @@ using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using Newtonsoft.Json;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -220,7 +221,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MappingToolRepository.InsertMigrationMapping(registrations[i].SitefinityId, jsonRegistrations[i].ContentItemId, ItemTypes.Registration);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-12-" + ItemTypes.Registration + "-" + registrations.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + "12-" + ItemTypes.Registration + "-" + registrations.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
             return jsonRegistrations;
@@ -239,7 +240,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MappingToolRepository.InsertMigrationMapping(restrictions[i].SitefinityId, jsonRestrictions[i].ContentItemId, ItemTypes.Restriction);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-13-" + ItemTypes.Restriction + "-" + restrictions.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + "13-" + ItemTypes.Restriction + "-" + restrictions.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
             return jsonRestrictions;
@@ -258,7 +259,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MappingToolRepository.InsertMigrationMapping(apprenticeshipLinks[i].SitefinityId, jsonApprenticeshipLinks[i].ContentItemId, ItemTypes.ApprenticeshipLink);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-03-" + ItemTypes.ApprenticeshipLink + "-" + apprenticeshipLinks.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + "03-" + ItemTypes.ApprenticeshipLink + "-" + apprenticeshipLinks.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
             return jsonApprenticeshipLinks;
@@ -277,7 +278,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MappingToolRepository.InsertMigrationMapping(collegeLinks[i].SitefinityId, jsonCollegeLinks[i].ContentItemId, ItemTypes.CollegeLink);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-04-" + ItemTypes.CollegeLink + "-" + collegeLinks.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + "04-" + ItemTypes.CollegeLink + "-" + collegeLinks.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
             return jsonCollegeLinks;
@@ -296,7 +297,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MappingToolRepository.InsertMigrationMapping(universityLinks[i].SitefinityId, jsonUniversityLinks[i].ContentItemId, ItemTypes.UniversityLink);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-05-" + ItemTypes.UniversityLink + "-" + universityLinks.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + "05-" + ItemTypes.UniversityLink + "-" + universityLinks.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
             return jsonUniversityLinks;
@@ -315,7 +316,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MappingToolRepository.InsertMigrationMapping(apprenticeshipRequirements[i].SitefinityId, jsonApprenticeshipRequirements[i].ContentItemId, ItemTypes.ApprenticeshipRequirement);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-06-" + ItemTypes.ApprenticeshipRequirement + "-" + apprenticeshipRequirements.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + "06-" + ItemTypes.ApprenticeshipRequirement + "-" + apprenticeshipRequirements.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
             return jsonApprenticeshipRequirements;
@@ -334,7 +335,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MappingToolRepository.InsertMigrationMapping(collegeRequirements[i].SitefinityId, jsonCollegeRequirements[i].ContentItemId, ItemTypes.CollegeRequirement);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-07-" + ItemTypes.CollegeRequirement + "-" + collegeRequirements.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + "07-" + ItemTypes.CollegeRequirement + "-" + collegeRequirements.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
             return jsonCollegeRequirements;
@@ -353,7 +354,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MappingToolRepository.InsertMigrationMapping(universityRequirements[i].SitefinityId, jsonUniversityRequirements[i].ContentItemId, ItemTypes.UniversityRequirement);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-08-" + ItemTypes.UniversityRequirement + "-" + universityRequirements.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + "08-" + ItemTypes.UniversityRequirement + "-" + universityRequirements.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
             return jsonUniversityRequirements;
@@ -372,7 +373,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MappingToolRepository.InsertMigrationMapping(uniforms[i].SitefinityId, jsonUniforms[i].ContentItemId, ItemTypes.Uniform);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-09-" + ItemTypes.Uniform + "-" + uniforms.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + "09-" + ItemTypes.Uniform + "-" + uniforms.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
             return jsonUniforms;
@@ -460,12 +461,23 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             for (int i = 0; i < jsonHiddenAlternativeTitles.Count(); i++)
             {
                 jsonHiddenAlternativeTitles[i].SitefinityId = hiddenAlternativeTitles.ElementAt(i).SitefinityId;
+
                 MappingToolRepository.InsertMigrationMapping(hiddenAlternativeTitles.ElementAt(i).SitefinityId, jsonHiddenAlternativeTitles[i].ContentItemId, ItemTypes.HiddenAlternativeTitle);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-14-" + ItemTypes.HiddenAlternativeTitle + "-" + hiddenAlternativeTitles.Count().ToString() + ".json";
+            var fileName = "14-" + ItemTypes.HiddenAlternativeTitle + "-" + hiddenAlternativeTitles.Count().ToString();
+            var fullPathAndFileName = JsonFilePath + fileName + ".json";
+
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
+            var data = new List<object[]>();
+            foreach (var hiddenAlternativeTitle in jsonHiddenAlternativeTitles)
+            {
+                var dataItem = new object[] { hiddenAlternativeTitle.SitefinityId, hiddenAlternativeTitle.DisplayText, hiddenAlternativeTitle.HiddenAlternativeTitle?.Description?.Text };
+                data.Add(dataItem);
+            }
+
+            WriteExelFile(data, ItemTypes.HiddenAlternativeTitle, fileName);
             return jsonHiddenAlternativeTitles;
         }
 
@@ -493,12 +505,23 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             for (int i = 0; i < jsonApprenticeshipEntryRequirements.Count(); i++)
             {
                 jsonApprenticeshipEntryRequirements[i].SitefinityId = apprenticeshipEntryRequirements.ElementAt(i).SitefinityId;
+
                 MappingToolRepository.InsertMigrationMapping(apprenticeshipEntryRequirements.ElementAt(i).SitefinityId, jsonApprenticeshipEntryRequirements[i].ContentItemId, ItemTypes.ApprenticeshipEntryRequirements);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-15-" + ItemTypes.ApprenticeshipEntryRequirements + "-" + apprenticeshipEntryRequirements.Count().ToString() + ".json";
+            var fileName = "15-" + ItemTypes.ApprenticeshipEntryRequirements + "-" + apprenticeshipEntryRequirements.Count().ToString();
+            var fullPathAndFileName = JsonFilePath + fileName + ".json";
+
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
+            var data = new List<object[]>();
+            foreach (var apprenticeshipEntryRequirement in jsonApprenticeshipEntryRequirements)
+            {
+                var dataItem = new object[] { apprenticeshipEntryRequirement.SitefinityId, apprenticeshipEntryRequirement.DisplayText, apprenticeshipEntryRequirement.ApprenticeshipEntryRequirements?.Description?.Text };
+                data.Add(dataItem);
+            }
+
+            WriteExelFile(data, ItemTypes.ApprenticeshipEntryRequirements, fileName);
             return jsonApprenticeshipEntryRequirements;
         }
 
@@ -526,11 +549,23 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             for (int i = 0; i < jsonWorkingPatterns.Count(); i++)
             {
                 jsonWorkingPatterns[i].SitefinityId = workingPatterns.ElementAt(i).SitefinityId;
+
                 MappingToolRepository.InsertMigrationMapping(workingPatterns.ElementAt(i).SitefinityId, jsonWorkingPatterns[i].ContentItemId, ItemTypes.WorkingPattern);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-16-" + ItemTypes.WorkingPattern + "-" + workingPatterns.Count().ToString() + ".json";
+            var fileName = "16-" + ItemTypes.WorkingPattern + "-" + workingPatterns.Count().ToString();
+            var fullPathAndFileName = JsonFilePath + fileName + ".json";
+
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            var data = new List<object[]>();
+            foreach (var workingPattern in jsonWorkingPatterns)
+            {
+                var dataItem = new object[] { workingPattern.SitefinityId, workingPattern.DisplayText, workingPattern.WorkingPatterns?.Description?.Text };
+                data.Add(dataItem);
+            }
+
+            WriteExelFile(data, ItemTypes.WorkingPattern, fileName);
 
             return jsonWorkingPatterns;
         }
@@ -560,13 +595,24 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             for (int i = 0; i < jsonJobProfileCategories.Count(); i++)
             {
                 jsonJobProfileCategories[i].SitefinityId = jobProfileCategories.ElementAt(i).SitefinityId;
+
                 MappingToolRepository.InsertMigrationMapping(jobProfileCategories.ElementAt(i).SitefinityId, jsonJobProfileCategories[i].ContentItemId, ItemTypes.JobProfileCategories);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-17-" + ItemTypes.JobProfileCategories + "-" + jobProfileCategories.Count().ToString() + ".json";
-            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+            var fileName = "17-" + SitefinityFields.RelatedJobProfileCategories + "-" + jobProfileCategories.Count().ToString();
+            var fullPathAndFileName = JsonFilePath + fileName + ".json";
 
-            return jobProfileCategories;
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+            var data = new List<object[]>();
+            foreach (var jobProfileCategory in jsonJobProfileCategories)
+            {
+                var dataItem = new object[] { jobProfileCategory.SitefinityId, jobProfileCategory.DisplayText, jobProfileCategory.JobProfileCategory?.Description?.Text, jobProfileCategory.PageLocationPart.UrlName, jobProfileCategory.PageLocationPart.FullUrl };
+                data.Add(dataItem);
+            }
+
+            WriteExelFile(data, SitefinityFields.RelatedJobProfileCategories, fileName);
+
+            return jsonJobProfileCategories;
         }
 
         private IEnumerable<OcApprenticeshipStandard> GetApprenticeshipStandards()
@@ -589,7 +635,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             var jsonApprenticeshipStandards = new List<OcApprenticeshipStandard>();
             int allApprenticeshipStandardsCount = apprenticeshipStandards.Count();
-            int batchSize = 50;
+            int batchSize = 200;
             int numberOfFiles = allApprenticeshipStandardsCount / batchSize;
 
             for (int idx = 0; idx <= numberOfFiles; idx++)
@@ -602,12 +648,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 for (int i = 0; i < jsonCurruntApprenticeshipStandards.Count(); i++)
                 {
                     jsonCurruntApprenticeshipStandards[i].SitefinityId = currentApprenticeshipStandards[i].SitefinityId;
+
                     MappingToolRepository.InsertMigrationMapping(currentApprenticeshipStandards[i].SitefinityId, currentApprenticeshipStandards[i].ContentItemId, ItemTypes.ApprenticeshipStandards);
                 }
 
-                var currentFullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-01-" + ItemTypes.ApprenticeshipStandards + $"-{idx + 1}-" + currentApprenticeshipStandards.Count().ToString() + ".json";
-                System.IO.File.WriteAllText(currentFullPathAndFileName, RecipeBeginning + currentJsonData + RecipeEnd);
+                var currentFullPathAndFileName = JsonFilePath + "01-" + ItemTypes.ApprenticeshipStandards + $"-{idx + 1}-" + currentApprenticeshipStandards.Count().ToString() + ".json";
 
+                System.IO.File.WriteAllText(currentFullPathAndFileName, RecipeBeginning + currentJsonData + RecipeEnd);
                 jsonApprenticeshipStandards.AddRange(jsonCurruntApprenticeshipStandards);
             }
 
@@ -625,6 +672,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-01-" + ItemTypes.ApprenticeshipStandards + "-" + apprenticeshipStandards.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
             */
+
+            var fileName = "01-" + SitefinityFields.ApprenticeshipStandards + "-" + apprenticeshipStandards.Count().ToString();
+            var data = new List<object[]>();
+            foreach (var apprenticeshipStandard in jsonApprenticeshipStandards)
+            {
+                var dataItem = new object[] { apprenticeshipStandard.SitefinityId, apprenticeshipStandard.DisplayText, apprenticeshipStandard.ApprenticeshipStandard?.Description?.Text, apprenticeshipStandard.ApprenticeshipStandard?.LARScode?.Text };
+                data.Add(dataItem);
+            }
+
+            WriteExelFile(data, SitefinityFields.ApprenticeshipStandards, fileName);
 
             return jsonApprenticeshipStandards;
         }
@@ -653,11 +710,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             for (int i = 0; i < jsonUniversityEntryRequirements.Count(); i++)
             {
                 jsonUniversityEntryRequirements[i].SitefinityId = universityEntryRequirements.ElementAt(i).SitefinityId;
+
                 MappingToolRepository.InsertMigrationMapping(universityEntryRequirements.ElementAt(i).SitefinityId, jsonUniversityEntryRequirements[i].ContentItemId, ItemTypes.UniversityEntryRequirements);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-18-" + ItemTypes.UniversityEntryRequirements + "-" + universityEntryRequirements.Count().ToString() + ".json";
+            var fileName = "18-" + ItemTypes.UniversityEntryRequirements + "-" + universityEntryRequirements.Count().ToString();
+            var fullPathAndFileName = JsonFilePath + fileName + ".json";
+
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+            var data = new List<object[]>();
+            foreach (var universityEntryRequirement in jsonUniversityEntryRequirements)
+            {
+                var dataItem = new object[] { universityEntryRequirement.SitefinityId, universityEntryRequirement.DisplayText, universityEntryRequirement.UniversityEntryRequirements?.Description?.Text };
+                data.Add(dataItem);
+            }
+
+            WriteExelFile(data, ItemTypes.UniversityEntryRequirements, fileName);
 
             return jsonUniversityEntryRequirements;
         }
@@ -686,11 +754,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             for (int i = 0; i < jsonCollegeEntryRequirements.Count(); i++)
             {
                 jsonCollegeEntryRequirements[i].SitefinityId = collegeEntryRequirements.ElementAt(i).SitefinityId;
+
                 MappingToolRepository.InsertMigrationMapping(collegeEntryRequirements.ElementAt(i).SitefinityId, jsonCollegeEntryRequirements[i].ContentItemId, ItemTypes.CollegeEntryRequirements);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-19-" + ItemTypes.CollegeEntryRequirements + "-" + collegeEntryRequirements.Count().ToString() + ".json";
+            var fileName = "19-" + ItemTypes.CollegeEntryRequirements + "-" + collegeEntryRequirements.Count().ToString();
+            var fullPathAndFileName = JsonFilePath + fileName + ".json";
+
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+            var data = new List<object[]>();
+            foreach (var collegeEntryRequirement in jsonCollegeEntryRequirements)
+            {
+                var dataItem = new object[] { collegeEntryRequirement.SitefinityId, collegeEntryRequirement.DisplayText, collegeEntryRequirement.CollegeEntryRequirements?.Description?.Text };
+                data.Add(dataItem);
+            }
+
+            WriteExelFile(data, ItemTypes.CollegeEntryRequirements, fileName);
 
             return jsonCollegeEntryRequirements;
         }
@@ -719,11 +798,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             for (int i = 0; i < jsonJobProfileSpecialism.Count(); i++)
             {
                 jsonJobProfileSpecialism[i].SitefinityId = jobProfileSpecialisms.ElementAt(i).SitefinityId;
+
                 MappingToolRepository.InsertMigrationMapping(jobProfileSpecialisms.ElementAt(i).SitefinityId, jsonJobProfileSpecialism[i].ContentItemId, ItemTypes.JobProfileSpecialism);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-20-" + ItemTypes.JobProfileSpecialism + "-" + jobProfileSpecialisms.Count().ToString() + ".json";
+            var fileName = "20-" + ItemTypes.JobProfileSpecialism + "-" + jobProfileSpecialisms.Count().ToString();
+            var fullPathAndFileName = JsonFilePath + fileName + ".json";
+
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+            var data = new List<object[]>();
+            foreach (var jobProfileSpecialism in jsonJobProfileSpecialism)
+            {
+                var dataItem = new object[] { jobProfileSpecialism.SitefinityId, jobProfileSpecialism.DisplayText, jobProfileSpecialism.JobProfileSpecialism?.Description?.Text };
+                data.Add(dataItem);
+            }
+
+            WriteExelFile(data, ItemTypes.JobProfileSpecialism, fileName);
 
             return jsonJobProfileSpecialism;
         }
@@ -752,11 +842,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             for (int i = 0; i < jsonWorkingPatternDetails.Count(); i++)
             {
                 jsonWorkingPatternDetails[i].SitefinityId = workingPatternDetails.ElementAt(i).SitefinityId;
+
                 MappingToolRepository.InsertMigrationMapping(workingPatternDetails.ElementAt(i).SitefinityId, jsonWorkingPatternDetails[i].ContentItemId, ItemTypes.WorkingPatternDetails);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-21-" + ItemTypes.WorkingPatternDetails + "-" + workingPatternDetails.Count().ToString() + ".json";
+            var fileName = "21-" + ItemTypes.WorkingPatternDetails + "-" + workingPatternDetails.Count().ToString();
+            var fullPathAndFileName = JsonFilePath + fileName + ".json";
+
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+            var data = new List<object[]>();
+            foreach (var workingPatternDetail in jsonWorkingPatternDetails)
+            {
+                var dataItem = new object[] { workingPatternDetail.SitefinityId, workingPatternDetail.DisplayText, workingPatternDetail.WorkingPatternDetail?.Description?.Text };
+                data.Add(dataItem);
+            }
+
+            WriteExelFile(data, ItemTypes.WorkingPatternDetails, fileName);
 
             return jsonWorkingPatternDetails;
         }
@@ -785,11 +886,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             for (int i = 0; i < jsonWorkingHoursDetails.Count(); i++)
             {
                 jsonWorkingHoursDetails[i].SitefinityId = workingHoursDetails.ElementAt(i).SitefinityId;
+
                 MappingToolRepository.InsertMigrationMapping(workingHoursDetails.ElementAt(i).SitefinityId, jsonWorkingHoursDetails[i].ContentItemId, ItemTypes.WorkingHoursDetails);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-22-" + ItemTypes.WorkingHoursDetails + "-" + workingHoursDetails.Count().ToString() + ".json";
+            var fileName = "22-" + ItemTypes.WorkingHoursDetails + "-" + workingHoursDetails.Count().ToString();
+            var fullPathAndFileName = JsonFilePath + fileName + ".json";
+
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+            var data = new List<object[]>();
+            foreach (var workingHoursDetail in jsonWorkingHoursDetails)
+            {
+                var dataItem = new object[] { workingHoursDetail.SitefinityId, workingHoursDetail.DisplayText, workingHoursDetail.WorkingHoursDetail?.Description?.Text };
+                data.Add(dataItem);
+            }
+
+            WriteExelFile(data, ItemTypes.WorkingHoursDetails, fileName);
 
             return jsonWorkingHoursDetails;
         }
@@ -832,20 +944,35 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
                 socCode.SOCCode.ApprenticeshipStandards.ContentItemIds = orchardCoreIds?.ToArray();
 
-                //MappingToolRepository.InsertMigrationMapping(socCode.SitefinityId, socCode.ContentItemId, ItemTypes.JobProfileSoc);
+                MappingToolRepository.InsertMigrationMapping(socCode.SitefinityId, socCode.ContentItemId, ItemTypes.JobProfileSoc);
             }
 
             var jsonData = JsonConvert.SerializeObject(socCodes);
             var jsonSocCodes = JsonConvert.DeserializeObject<List<OcSocCode>>(jsonData);
 
+            int batchSize = 200;
+            int numberOfFiles = jsonSocCodes.Count() / batchSize;
+
+            for (int idx = 0; idx <= numberOfFiles; idx++)
+            {
+                var currentSocCodes = jsonSocCodes.Skip(idx * batchSize).Take(batchSize).ToList();
+
+                var currentJsonData = JsonConvert.SerializeObject(currentSocCodes);
+
+                var currentFullPathAndFileName = JsonFilePath + @"SocCodesSplits\" + "02-" + ItemTypes.JobProfileSoc + $"-{idx + 1}-" + currentSocCodes.Count().ToString() + ".json";
+                System.IO.File.WriteAllText(currentFullPathAndFileName, RecipeBeginning + currentJsonData + RecipeEnd);
+            }
+
+            /*
             for (int i = 0; i < jsonSocCodes.Count(); i++)
             {
                 jsonSocCodes[i].SitefinityId = socCodes[i].SitefinityId;
                 MappingToolRepository.InsertMigrationMapping(socCodes[i].SitefinityId, jsonSocCodes[i].ContentItemId, ItemTypes.JobProfileSoc);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-02-" + ItemTypes.JobProfileSoc + "-" + socCodes.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + "02-" + ItemTypes.JobProfileSoc + "-" + socCodes.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+            */
 
             return jsonSocCodes;
         }
@@ -929,7 +1056,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
                 // Preserve SitefinityId & OrchardCoreId per JobProfile by storing them in the database
                 MappingToolRepository.InsertMigrationMapping(jobProfile.SitefinityId, jobProfile.ContentItemId, ItemTypes.JobProfile);
-
                 jobProfiles.Add(jobProfile);
             }
 
@@ -948,7 +1074,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
 
             // Split all JobProfiles into batches of
-            int batchSize = 10;
+            int batchSize = 30;
             int numberOfFiles = jobProfileUrlsCount / batchSize;
 
             for (int idx = 0; idx <= numberOfFiles; idx++)
@@ -999,31 +1125,94 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var contentItemId = string.Empty;
 
-                var mappings = MappingToolRepository.GetMigrationMappingBySitefinityId(sitefinityId).ToList();
-                if (mappings != null && mappings?.Count() != 0)
+            var mappings = MappingToolRepository.GetMigrationMappingBySitefinityId(sitefinityId).ToList();
+            if (mappings != null && mappings?.Count() != 0)
+            {
+                if (mappings.Count() == 1)
                 {
-                    if (mappings.Count() == 1)
-                    {
-                        contentItemId = mappings[0].OrchardCoreId;
-                    }
-                    else
-                    {
-                        contentItemId = mappings.FirstOrDefault().OrchardCoreId;
-                        ErrorMessage += $"Multiple mappings for JP ContentItemId -'{jobProfileDisplayText}'-'{jobProfileContentItemId}', SfId- '{sitefinityId}', JPContentType- '{contentType}': <br /> ";
-                        foreach (var mapping in mappings)
-                        {
-                            ErrorMessage += $"~ OrchardCoreId-'{mapping.OrchardCoreId}' and MappingContentType-'{mapping.ContentType}' <br />";
-                        }
-                    }
+                    contentItemId = mappings[0].OrchardCoreId;
                 }
                 else
                 {
-                    ErrorMessage += $"Could not pull any mappings for JP ContentItemId -'{jobProfileDisplayText}'-'{jobProfileContentItemId}', SfId-'{sitefinityId}',  JPContentType- '{contentType}' <br />";
+                    contentItemId = mappings.FirstOrDefault().OrchardCoreId;
+                    ErrorMessage += $"Multiple mappings for JP ContentItemId -'{jobProfileDisplayText}'-'{jobProfileContentItemId}', SfId- '{sitefinityId}', JPContentType- '{contentType}': <br /> ";
+                    foreach (var mapping in mappings)
+                    {
+                        ErrorMessage += $"~ OrchardCoreId-'{mapping.OrchardCoreId}' and MappingContentType-'{mapping.ContentType}' <br />";
+                    }
                 }
+            }
+            else
+            {
+                ErrorMessage += $"Could not pull any mappings for JP ContentItemId -'{jobProfileDisplayText}'-'{jobProfileContentItemId}', SfId-'{sitefinityId}',  JPContentType- '{contentType}' <br />";
+            }
 
             return contentItemId;
         }
 
-        #endregion Private Methods -  - DynamicContentTypes - JobProfiles
+        #endregion Private Methods - DynamicContentTypes - JobProfiles
+
+        #region Private Methods - WriteExelFile
+
+        private void WriteExelFile(List<object[]> data, string contentType, string fileName)
+        {
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+            using (ExcelPackage excel = new ExcelPackage())
+            {
+                //Add Worksheets in Excel file
+                excel.Workbook.Worksheets.Add(contentType);
+
+                //Create Excel file in Uploads folder of your project
+                FileInfo excelFile = new FileInfo(Server.MapPath($"~/OrchardCoreExcelFiles/{fileName}.xlsx"));
+
+                //Add header row columns name in string list array
+                var headerRow = new List<string[]>();
+
+                if (contentType.Equals(SitefinityFields.RelatedJobProfileCategories))
+                {
+                    headerRow = new List<string[]>()
+                    {
+                       new string[] { "Id", "Title_en", "Description_en", "UrlName", "FullUrl" }
+                    };
+                }
+                else if (contentType.Equals(SitefinityFields.ApprenticeshipStandards))
+                {
+                    headerRow = new List<string[]>()
+                    {
+                       new string[] { "Id", "Title_en", "Description_en", "LARScode" }
+                    };
+                }
+                else
+                {
+                    headerRow = new List<string[]>()
+                    {
+                       new string[] { "Id", "Title_en", "Description_en" }
+                    };
+                }
+
+                // Get the header range
+                string range = "A1:" + char.ConvertFromUtf32(headerRow[0].Length + 64) + "1";
+
+                // get the workSheet in which you want to create header
+                var worksheet = excel.Workbook.Worksheets[contentType];
+
+                // Popular header row data
+                worksheet.Cells[range].LoadFromArrays(headerRow);
+
+                //show header cells with different style
+                worksheet.Cells[range].Style.Font.Bold = true;
+                worksheet.Cells[range].Style.Font.Size = 11;
+                worksheet.Cells[range].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+
+                //add the data in worksheet, here .Cells[2,1] 2 is rowNumber while 1 is column number
+                worksheet.Cells[2, 1].LoadFromArrays(data);
+
+                //Save Excel file
+                excel.SaveAs(excelFile);
+            }
+        }
+
+        #endregion Private Methods - WriteExelFile
     }
 }

@@ -35,6 +35,6 @@ namespace DFC.Digital.Data.Model.OrchardCore
 
     public class IntRegistration
     {
-        public OcDescriptionHtml Description { get; set; }
+        public OcInfoHtml Info { get; set; }
     }
 }

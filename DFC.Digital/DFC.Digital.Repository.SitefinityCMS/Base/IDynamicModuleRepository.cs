@@ -69,5 +69,9 @@ namespace DFC.Digital.Repository.SitefinityCMS
         IEnumerable<OcEnvironment> GetAllEnvironments();
 
         IEnumerable<OcSocCode> GetAllSOCCodes();
+
+        IEnumerable<JobProfileUrl> GetAllJobProfileUrls();
+
+        OcJobProfile GetJobProfileByUrlName(string urlName);
     }
 }

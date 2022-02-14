@@ -392,7 +392,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MappingToolRepository.InsertMigrationMapping(locations[i].SitefinityId, jsonLocations[i].ContentItemId, ItemTypes.Location);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-10-" + ItemTypes.Location + "-" + locations.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + "10-" + ItemTypes.Location + "-" + locations.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
             return jsonLocations;
@@ -411,7 +411,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MappingToolRepository.InsertMigrationMapping(environments[i].SitefinityId, jsonEnvironments[i].ContentItemId, ItemTypes.Environment);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-11-" + ItemTypes.Environment + "-" + environments.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + "11-" + ItemTypes.Environment + "-" + environments.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
             return jsonEnvironments;
@@ -944,7 +944,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
                 socCode.SOCCode.ApprenticeshipStandards.ContentItemIds = orchardCoreIds?.ToArray();
 
-                MappingToolRepository.InsertMigrationMapping(socCode.SitefinityId, socCode.ContentItemId, ItemTypes.JobProfileSoc);
+                //MappingToolRepository.InsertMigrationMapping(socCode.SitefinityId, socCode.ContentItemId, ItemTypes.JobProfileSoc);
             }
 
             var jsonData = JsonConvert.SerializeObject(socCodes);
@@ -974,7 +974,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
             */
 
-            return jsonSocCodes;
+            return socCodes;
         }
 
         #endregion Private Methods -  - DynamicContentTypes - SOC Codes and Skills
@@ -984,12 +984,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private List<OcJobProfile> GetJobProfiles()
         {
             var jobProfiles = new List<OcJobProfile>();
-            var jobProfileUrls = jobProfileRepository.GetAllJobProfileUrls().OrderBy(jp => jp.Title).ToList();
+            var jobProfileUrls = dynamicModuleRepository.GetAllJobProfileUrls().OrderBy(jp => jp.Title).ToList();
             int jobProfileUrlsCount = jobProfileUrls.Count();
 
             for (int i = 0; i < jobProfileUrlsCount; i++)
             {
-                var jobProfile = jobProfileRepository.GetJobProfileByUrlName(jobProfileUrls[i].UrlName);
+                var jobProfile = dynamicModuleRepository.GetJobProfileByUrlName(jobProfileUrls[i].UrlName);
 
                 // HiddenAlternativeTitle
                 jobProfile.JobProfile.HiddenAlternativeTitle.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.HiddenAlternativeTitleSf, ItemTypes.HiddenAlternativeTitle);

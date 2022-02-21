@@ -9,6 +9,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
     public static class SitefinityFields
     {
         public const string Id = "Id";
+        public const string OriginalContentId = "OriginalContentId";
         public const string Title = "Title";
         public const string Text = "Text";
         public const string Url = "Url";

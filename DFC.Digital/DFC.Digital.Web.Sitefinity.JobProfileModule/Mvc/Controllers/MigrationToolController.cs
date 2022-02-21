@@ -635,7 +635,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             var jsonApprenticeshipStandards = new List<OcApprenticeshipStandard>();
             int allApprenticeshipStandardsCount = apprenticeshipStandards.Count();
-            int batchSize = 200;
+            int batchSize = 400;
             int numberOfFiles = allApprenticeshipStandardsCount / batchSize;
 
             for (int idx = 0; idx <= numberOfFiles; idx++)
@@ -652,7 +652,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     MappingToolRepository.InsertMigrationMapping(currentApprenticeshipStandards[i].SitefinityId, currentApprenticeshipStandards[i].ContentItemId, ItemTypes.ApprenticeshipStandards);
                 }
 
-                var currentFullPathAndFileName = JsonFilePath + "01-" + ItemTypes.ApprenticeshipStandards + $"-{idx + 1}-" + currentApprenticeshipStandards.Count().ToString() + ".json";
+                var currentFullPathAndFileName = JsonFilePath + "01-" + SitefinityFields.ApprenticeshipStandards + $"-{idx + 1}-" + ((idx * batchSize) + jsonCurruntApprenticeshipStandards.Count()) + ".json";
 
                 System.IO.File.WriteAllText(currentFullPathAndFileName, RecipeBeginning + currentJsonData + RecipeEnd);
                 jsonApprenticeshipStandards.AddRange(jsonCurruntApprenticeshipStandards);
@@ -944,13 +944,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
                 socCode.SOCCode.ApprenticeshipStandards.ContentItemIds = orchardCoreIds?.ToArray();
 
-                //MappingToolRepository.InsertMigrationMapping(socCode.SitefinityId, socCode.ContentItemId, ItemTypes.JobProfileSoc);
+                MappingToolRepository.InsertMigrationMapping(socCode.SitefinityId, socCode.ContentItemId, ItemTypes.JobProfileSoc);
             }
 
             var jsonData = JsonConvert.SerializeObject(socCodes);
             var jsonSocCodes = JsonConvert.DeserializeObject<List<OcSocCode>>(jsonData);
 
-            int batchSize = 200;
+            int batchSize = 20;
             int numberOfFiles = jsonSocCodes.Count() / batchSize;
 
             for (int idx = 0; idx <= numberOfFiles; idx++)
@@ -959,7 +959,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
                 var currentJsonData = JsonConvert.SerializeObject(currentSocCodes);
 
-                var currentFullPathAndFileName = JsonFilePath + @"SocCodesSplits\" + "02-" + ItemTypes.JobProfileSoc + $"-{idx + 1}-" + currentSocCodes.Count().ToString() + ".json";
+                var currentFullPathAndFileName = JsonFilePath + @"SocCodesSplits\" + $"02-SOCcodes-{idx + 1}-" + ((idx * batchSize) + currentSocCodes.Count()) + ".json";
                 System.IO.File.WriteAllText(currentFullPathAndFileName, RecipeBeginning + currentJsonData + RecipeEnd);
             }
 
@@ -1074,7 +1074,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
 
             // Split all JobProfiles into batches of
-            int batchSize = 30;
+            int batchSize = 15;
             int numberOfFiles = jobProfileUrlsCount / batchSize;
 
             for (int idx = 0; idx <= numberOfFiles; idx++)
@@ -1083,7 +1083,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
                 var currentJsonData = JsonConvert.SerializeObject(currentJobProfiles);
 
-                var currentFullPathAndFileName = JsonFilePath + @"JobProfilesSplits\" + "24-" + ItemTypes.JobProfile + $"-{idx + 1}-" + currentJobProfiles.Count().ToString() + ".json";
+                var currentFullPathAndFileName = JsonFilePath + @"JobProfilesSplits\" + "24-" + ItemTypes.JobProfile + $"-{idx + 1}-" + ((idx * batchSize) + currentJobProfiles.Count()) + ".json";
                 System.IO.File.WriteAllText(currentFullPathAndFileName, RecipeBeginning + currentJsonData + RecipeEnd);
             }
 

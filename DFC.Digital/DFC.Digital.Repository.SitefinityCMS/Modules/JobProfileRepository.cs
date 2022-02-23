@@ -334,7 +334,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 PageLocationPart = new Pagelocationpart() { UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName), DefaultPageForLocation = false, RedirectLocations = null, FullUrl = $"/{dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName)}" },
                 SitemapPart = new Sitemappart() { OverrideSitemapConfig = false, ChangeFrequency = 0, Priority = 5, Exclude = false },
                 ContentApprovalPart = new Contentapprovalpart { ReviewStatus = 0, ReviewType = 0, IsForcePublished = false },
-                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/jobpRelatedrestrictionsSfrofile/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.OriginalContentId)}" },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/jobprofile/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.OriginalContentId)}" },
                 AuditTrailPart = new Audittrailpart() { Comment = "Initial version imported by Migration Tool.", ShowComment = false }
             };
 

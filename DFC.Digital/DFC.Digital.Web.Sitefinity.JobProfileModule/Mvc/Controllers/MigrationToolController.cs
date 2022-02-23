@@ -55,9 +55,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         #region Public Properties
 
-        [DisplayName("Current ContentType Name")]
-        public string CurrentContentTypeName { get; set; }
-
         [DisplayName("Json FilePath")]
         public string JsonFilePath { get; set; } = @"D:\ESFA-GitHub\dfc-digital\DFC.Digital\DFC.Digital.Web.Sitefinity\OrchardCoreRecipes\";
 
@@ -75,6 +72,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         [DisplayName("Error Message")]
         public string ErrorMessage { get; set; }
+
+        [DisplayName("Is it FirstRun")]
+        public bool IsRirstRun { get; set; } = true;
 
         #endregion Public Properties
 
@@ -1054,18 +1054,25 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 // Registrations
                 jobProfile.JobProfile.RelatedRegistrations.ContentItemIds = GetOrchardCoreIds(jobProfile.DisplayText, jobProfile.ContentItemId, jobProfile.JobProfile.RelatedRegistrationsSf, ItemTypes.Registration);
 
-                // Preserve SitefinityId & OrchardCoreId per JobProfile by storing them in the database
-                MappingToolRepository.InsertMigrationMapping(jobProfile.SitefinityId, jobProfile.ContentItemId, ItemTypes.JobProfile);
+                if (IsRirstRun)
+                {
+                    // Preserve SitefinityId & OrchardCoreId per JobProfile by storing them in the database
+                    MappingToolRepository.InsertMigrationMapping(jobProfile.SitefinityId, jobProfile.ContentItemId, ItemTypes.JobProfile);
+                }
+
                 jobProfiles.Add(jobProfile);
             }
 
             for (int i = 0; i < jobProfileUrlsCount; i++)
             {
-                // Replace RelatedCareerProfiles SitefinityIds with OrchardCoreIds
-                //jobProfiles[i].JobProfile.Relatedcareerprofiles.ContentItemIds = GetOrchardCoreIds(jobProfiles[i].DisplayText, jobProfiles[i].ContentItemId, jobProfiles[i].JobProfile.RelatedcareerprofilesSf, ItemTypes.JobProfile);
+                if (!IsRirstRun)
+                {
+                    // Replace RelatedCareerProfiles SitefinityIds with OrchardCoreIds
+                    jobProfiles[i].JobProfile.Relatedcareerprofiles.ContentItemIds = GetOrchardCoreIds(jobProfiles[i].DisplayText, jobProfiles[i].ContentItemId, jobProfiles[i].JobProfile.RelatedcareerprofilesSf, ItemTypes.JobProfile);
 
-                // Restore original ContentItemId from the first run
-                //jobProfiles[i].ContentItemId = GetJobProfileContentItemId(jobProfiles[i].DisplayText, jobProfiles[i].ContentItemId, jobProfiles[i].SitefinityId, ItemTypes.JobProfile);
+                    // Restore original ContentItemId from the first run
+                    jobProfiles[i].ContentItemId = GetJobProfileContentItemId(jobProfiles[i].DisplayText, jobProfiles[i].ContentItemId, jobProfiles[i].SitefinityId, ItemTypes.JobProfile);
+                }
 
                 // And then print the recipes for each Jobprofile
                 var jsonData = JsonConvert.SerializeObject(jobProfiles[i]);

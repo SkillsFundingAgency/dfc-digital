@@ -36,6 +36,6 @@ namespace DFC.Digital.Data.Model.OrchardCore.Uniform
 
     public class Uniform
     {
-        public OcDescriptionHtml Description { get; set; }
+        public OcDescriptionText Description { get; set; }
     }
 }

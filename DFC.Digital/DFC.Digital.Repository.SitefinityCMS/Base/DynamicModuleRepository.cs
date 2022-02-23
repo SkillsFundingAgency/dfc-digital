@@ -598,7 +598,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 CreatedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.DateCreated),
                 UniqueTitlePart = new Uniquetitlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title) },
                 TitlePart = new Titlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title) },
-                Uniform = new Uniform() { Description = new OcDescriptionHtml() { Html = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Description) } },
+                Uniform = new Uniform() { Description = new OcDescriptionText() { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Description) } },
                 GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/uniform/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.OriginalContentId)}" },
                 AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
             };
@@ -644,7 +644,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 CreatedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.DateCreated),
                 UniqueTitlePart = new Uniquetitlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title) },
                 TitlePart = new Titlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title) },
-                Location = new IntLocation() { Description = new OcDescriptionHtml() { Html = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Description) } },
+                Location = new IntLocation() { Description = new OcDescriptionText() { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Description) } },
                 GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/location/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.OriginalContentId)}" },
                 AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
             };
@@ -690,7 +690,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 CreatedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.DateCreated),
                 UniqueTitlePart = new Uniquetitlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title) },
                 TitlePart = new Titlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title) },
-                Environment = new IntEnvironment() { Description = new OcDescriptionHtml() { Html = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Description) } },
+                Environment = new IntEnvironment() { Description = new OcDescriptionText() { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Description) } },
                 GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/environment/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.OriginalContentId)}" },
                 AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
             };
@@ -913,7 +913,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 PageLocationPart = new Pagelocationpart() { UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName), DefaultPageForLocation = false, RedirectLocations = null, FullUrl = $"/{dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName)}" },
                 SitemapPart = new Sitemappart() { OverrideSitemapConfig = false, ChangeFrequency = 0, Priority = 5, Exclude = false },
                 ContentApprovalPart = new Contentapprovalpart { ReviewStatus = 0, ReviewType = 0, IsForcePublished = false },
-                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/jobpRelatedrestrictionsSfrofile/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.OriginalContentId)}" },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/jobprofile/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.OriginalContentId)}" },
                 AuditTrailPart = new Audittrailpart() { Comment = "Initial version imported by Migration Tool.", ShowComment = false }
             };
 

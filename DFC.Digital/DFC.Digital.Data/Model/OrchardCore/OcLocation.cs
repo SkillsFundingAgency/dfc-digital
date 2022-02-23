@@ -35,6 +35,6 @@ namespace DFC.Digital.Data.Model.OrchardCore
 
     public class IntLocation
     {
-        public OcDescriptionHtml Description { get; set; }
+        public OcDescriptionText Description { get; set; }
     }
 }

@@ -34,6 +34,6 @@ namespace DFC.Digital.Data.Model.OrchardCore
 
     public class IntEnvironment
     {
-        public OcDescriptionHtml Description { get; set; }
+        public OcDescriptionText Description { get; set; }
     }
 }

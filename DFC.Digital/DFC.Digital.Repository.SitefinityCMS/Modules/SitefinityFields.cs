@@ -63,5 +63,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public const string ProfessionalAndIndustryBodies = "ProfessionalAndIndustryBodies";
         public const string DynamicTitlePrefix = "DynamicTitlePrefix";
         public const string RelatedJobProfileCategories = "JobProfileCategories";
+        public const string RelatedSkills = "RelatedSkills";
     }
 }

@@ -973,6 +973,56 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return new string[] { dynamicTitlePrefixOrchardCoreId };
         }
 
+        public OcJobProfile GetJobProfileByUrlNameRCP(string urlName)
+        {
+            dynamicModuleContentType = TypeResolutionService.ResolveType(DynamicTypes.JobprofileContentType);
+            var jobProfilesDynamicContentItem = dynamicModuleManager.GetDataItems(dynamicModuleContentType).Where(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible).FirstOrDefault();
+            return ConvertDynamicContentToOcJobProfileRCP(jobProfilesDynamicContentItem);
+        }
+
+        public OcJobProfile ConvertDynamicContentToOcJobProfileRCP(DynamicContent content)
+        {
+            var relatedCareerProfilesTitles = dynamicContentExtensions.GetRelatedItemsTitles(content, SitefinityFields.RelatedCareerProfiles);
+
+            var ocJobProfile = new OcJobProfile
+            {
+                SitefinityId = dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id),
+                DisplayText = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title),
+                JobProfile = new Jobprofile()
+                {
+                    RelatedcareerprofilesSfTitles = relatedCareerProfilesTitles?.ToList()
+                }
+            };
+
+            return ocJobProfile;
+        }
+
+        public OcJobProfile GetJobProfileByUrlNameSkills(string urlName)
+        {
+            dynamicModuleContentType = TypeResolutionService.ResolveType(DynamicTypes.JobprofileContentType);
+            var jobProfilesDynamicContentItem = dynamicModuleManager.GetDataItems(dynamicModuleContentType).Where(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible).FirstOrDefault();
+            return ConvertDynamicContentToOcJobProfileSkills(jobProfilesDynamicContentItem);
+        }
+
+        public OcJobProfile ConvertDynamicContentToOcJobProfileSkills(DynamicContent content)
+        {
+            var relatedSkillsTitles = dynamicContentExtensions.GetRelatedItemsTitles(content, SitefinityFields.RelatedSkills);
+            var relatedSOCTitles = dynamicContentExtensions.GetRelatedSOCCodes(content, SitefinityFields.SOC);
+
+            var ocJobProfile = new OcJobProfile
+            {
+                SitefinityId = dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id),
+                DisplayText = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title),
+                JobProfile = new Jobprofile()
+                {
+                    RelatedSkillsSfTitles = relatedSkillsTitles?.ToList(),
+                    SOCCodeSfTitles = relatedSOCTitles?.ToList()
+                }
+            };
+
+            return ocJobProfile;
+        }
+
         #endregion JobProfiles
 
         [IgnoreOutputInInterception]

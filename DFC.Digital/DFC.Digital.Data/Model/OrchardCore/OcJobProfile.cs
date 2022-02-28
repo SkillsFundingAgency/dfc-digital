@@ -122,8 +122,14 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public Coursekeywords Coursekeywords { get; set; }
         public Careerpathandprogression Careerpathandprogression { get; set; }
         [JsonIgnore]
+        public List<string> RelatedcareerprofilesSfTitles { get; set; }
+        [JsonIgnore]
+        public List<string> RelatedSkillsSfTitles { get; set; }
+        [JsonIgnore]
         public List<Guid> RelatedcareerprofilesSf { get; set; }
         public Relatedcareerprofiles Relatedcareerprofiles { get; set; }
+        [JsonIgnore]
+        public List<string> SOCCodeSfTitles { get; set; }
         [JsonIgnore]
         public List<Guid> SOCCodeSf { get; set; }
         public SoccodeIds SOCCode { get; set; }

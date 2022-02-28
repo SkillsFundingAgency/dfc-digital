@@ -52,6 +52,36 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return relatedItemsSitefinityIds;
         }
 
+        public IList<string> GetRelatedItemsTitles(DynamicContent contentItem, string fieldName)
+        {
+            var relatedItemsTitles = new List<string>();
+            var relatedItems = GetRelatedItems(contentItem, fieldName, 20);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    relatedItemsTitles.Add(GetFieldValue<Lstring>(relatedItem, SitefinityFields.Title));
+                }
+            }
+
+            return relatedItemsTitles;
+        }
+
+        public IList<string> GetRelatedSOCCodes(DynamicContent contentItem, string fieldName)
+        {
+            var relatedItemsTitles = new List<string>();
+            var relatedItems = GetRelatedItems(contentItem, fieldName, 25);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    relatedItemsTitles.Add(GetFieldValue<Lstring>(relatedItem, SitefinityFields.SOCCode));
+                }
+            }
+
+            return relatedItemsTitles;
+        }
+
         public IEnumerable<DynamicContent> GetRelatedSearchItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems)
         {
             return contentItem?

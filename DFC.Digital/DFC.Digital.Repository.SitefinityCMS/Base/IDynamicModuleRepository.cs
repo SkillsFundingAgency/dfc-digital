@@ -73,5 +73,9 @@ namespace DFC.Digital.Repository.SitefinityCMS
         IEnumerable<JobProfileUrl> GetAllJobProfileUrls();
 
         OcJobProfile GetJobProfileByUrlName(string urlName);
+
+        OcJobProfile GetJobProfileByUrlNameRCP(string urlName);
+
+        OcJobProfile GetJobProfileByUrlNameSkills(string urlName);
     }
 }

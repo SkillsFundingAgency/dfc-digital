@@ -24,6 +24,14 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
+        IList<string> GetRelatedItemsTitles(DynamicContent contentItem, string fieldName);
+
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
+        IList<string> GetRelatedSOCCodes(DynamicContent contentItem, string fieldName);
+
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
         IEnumerable<DynamicContent> GetRelatedSearchItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems);
 
         [IgnoreInputInInterception]

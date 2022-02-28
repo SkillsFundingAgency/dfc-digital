@@ -194,6 +194,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     model.ErrorMessage = ErrorMessage;
                     count = model.JobProfiles.Count;
                     break;
+                case "JobProfileRCP":
+                    model.JobProfiles = GetJobProfilesRCP();
+                    model.ErrorMessage = ErrorMessage;
+                    count = model.JobProfiles.Count;
+                    break;
+                case "JobProfileSkills":
+                    model.JobProfiles = GetJobProfilesSkills();
+                    model.ErrorMessage = ErrorMessage;
+                    count = model.JobProfiles.Count;
+                    break;
                 default:
                     break;
             }
@@ -983,6 +993,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private List<OcJobProfile> GetJobProfiles()
         {
+            IsRirstRun = false;
             var jobProfiles = new List<OcJobProfile>();
             var jobProfileUrls = dynamicModuleRepository.GetAllJobProfileUrls().OrderBy(jp => jp.Title).ToList();
             int jobProfileUrlsCount = jobProfileUrls.Count();
@@ -1097,6 +1108,76 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             return jobProfiles;
         }
 
+        private List<OcJobProfile> GetJobProfilesRCP()
+        {
+            var jobProfiles = new List<OcJobProfile>();
+            var jobProfileUrls = dynamicModuleRepository.GetAllJobProfileUrls().OrderBy(jp => jp.Title).ToList();
+            int jobProfileUrlsCount = jobProfileUrls.Count();
+
+            var data = new List<object[]>();
+
+            for (int i = 0; i < jobProfileUrlsCount; i++)
+            {
+                var jobProfile = dynamicModuleRepository.GetJobProfileByUrlNameRCP(jobProfileUrls[i].UrlName);
+
+                var dataItem = new List<string> { jobProfile.SitefinityId.ToString(), jobProfile.DisplayText };
+
+                var rcpCount = jobProfile.JobProfile.RelatedcareerprofilesSfTitles.Count();
+                var addRcpCount = 10 - rcpCount;
+                dataItem.AddRange(jobProfile.JobProfile.RelatedcareerprofilesSfTitles);
+                dataItem.AddRange(AddEmptyRCPs(addRcpCount));
+
+                data.Add(dataItem.ToArray<object>());
+
+                jobProfiles.Add(jobProfile);
+            }
+
+            WriteExelFileRCP(data);
+
+            return jobProfiles;
+        }
+
+        private List<OcJobProfile> GetJobProfilesSkills()
+        {
+            var jobProfiles = new List<OcJobProfile>();
+            var jobProfileUrls = dynamicModuleRepository.GetAllJobProfileUrls().OrderBy(jp => jp.Title).ToList();
+            int jobProfileUrlsCount = jobProfileUrls.Count();
+
+            var data = new List<object[]>();
+
+            for (int i = 0; i < jobProfileUrlsCount; i++)
+            {
+                var jobProfile = dynamicModuleRepository.GetJobProfileByUrlNameSkills(jobProfileUrls[i].UrlName);
+
+                var dataItem = new List<string> { jobProfile.SitefinityId.ToString(), jobProfile.DisplayText, jobProfile.JobProfile.SOCCodeSfTitles.FirstOrDefault() };
+
+                var skillsCount = jobProfile.JobProfile.RelatedSkillsSfTitles.Count();
+                var addSkillsCount = 21 - skillsCount;
+                dataItem.AddRange(jobProfile.JobProfile.RelatedSkillsSfTitles);
+                dataItem.AddRange(AddEmptyRCPs(addSkillsCount));
+
+                data.Add(dataItem.ToArray<object>());
+
+                jobProfiles.Add(jobProfile);
+            }
+
+            WriteExelFileSkills(data);
+
+            return jobProfiles;
+        }
+
+        private List<string> AddEmptyRCPs(int count)
+        {
+            var addEmptyRCPs = new List<string>();
+
+            for (var i = 0; i < count; i++)
+            {
+                addEmptyRCPs.Add(string.Empty);
+            }
+
+            return addEmptyRCPs;
+        }
+
         private string[] GetOrchardCoreIds(string jobProfileDisplayText, string jobProfileContentItemId, List<Guid> sitefinityIds, string contentType)
         {
             var orchardCoreIds = new List<string>();
@@ -1159,7 +1240,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         #endregion Private Methods - DynamicContentTypes - JobProfiles
 
-        #region Private Methods - WriteExelFile
+        #region Private Methods - WriteExelFiles
 
         private void WriteExelFile(List<object[]> data, string contentType, string fileName)
         {
@@ -1220,6 +1301,91 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
         }
 
+        private void WriteExelFileRCP(List<object[]> data)
+        {
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+            using (ExcelPackage excel = new ExcelPackage())
+            {
+                //Add Worksheets in Excel file
+                excel.Workbook.Worksheets.Add("JobProfile RCPs");
+
+                //Create Excel file in Uploads folder of your project
+                FileInfo excelFile = new FileInfo(Server.MapPath($"~/OrchardCoreExcelFiles/JobProfileRCPs.xlsx"));
+
+                //Add header row columns name in string list array
+                var headerRow = new List<string[]>();
+
+                headerRow = new List<string[]>()
+                    {
+                       new string[] { "Id", "Title", "RCP01", "RCP02", "RCP03", "RCP04", "RCP05", "RCP06", "RCP07", "RCP08", "RCP09", "RCP10" }
+                    };
+
+                // Get the header range
+                string range = "A1:" + char.ConvertFromUtf32(headerRow[0].Length + 64) + "1";
+
+                // get the workSheet in which you want to create header
+                var worksheet = excel.Workbook.Worksheets["JobProfile RCPs"];
+
+                // Popular header row data
+                worksheet.Cells[range].LoadFromArrays(headerRow);
+
+                //show header cells with different style
+                worksheet.Cells[range].Style.Font.Bold = true;
+                worksheet.Cells[range].Style.Font.Size = 11;
+                worksheet.Cells[range].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+
+                //add the data in worksheet, here .Cells[2,1] 2 is rowNumber while 1 is column number
+                //worksheet.Cells[2, 1].LoadFromCollection(data);
+                worksheet.Cells[2, 1].LoadFromArrays(data.ToArray<object[]>());
+
+                //Save Excel file
+                excel.SaveAs(excelFile);
+            }
+        }
+
+        private void WriteExelFileSkills(List<object[]> data)
+        {
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+            using (ExcelPackage excel = new ExcelPackage())
+            {
+                //Add Worksheets in Excel file
+                excel.Workbook.Worksheets.Add("JobProfile Skills");
+
+                //Create Excel file in Uploads folder of your project
+                FileInfo excelFile = new FileInfo(Server.MapPath($"~/OrchardCoreExcelFiles/JobProfileSkills.xlsx"));
+
+                //Add header row columns name in string list array
+                var headerRow = new List<string[]>();
+
+                headerRow = new List<string[]>()
+                    {
+                       new string[] { "Id", "Title", "SOC Code", "Skill-01", "Skill-02", "Skill-03", "Skill-04", "Skill-05", "Skill-06", "Skill-07", "Skill-08", "Skill-09", "Skill-10", "Skill-11", "Skill-12", "Skill-33", "Skill-14", "Skill-15", "Skill-16", "Skill-17", "Skill-18", "Skill-19", "Skill-20" }
+                    };
+
+                // Get the header range
+                string range = "A1:" + char.ConvertFromUtf32(headerRow[0].Length + 64) + "1";
+
+                // get the workSheet in which you want to create header
+                var worksheet = excel.Workbook.Worksheets["JobProfile Skills"];
+
+                // Popular header row data
+                worksheet.Cells[range].LoadFromArrays(headerRow);
+
+                //show header cells with different style
+                worksheet.Cells[range].Style.Font.Bold = true;
+                worksheet.Cells[range].Style.Font.Size = 11;
+                worksheet.Cells[range].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+
+                //add the data in worksheet, here .Cells[2,1] 2 is rowNumber while 1 is column number
+                //worksheet.Cells[2, 1].LoadFromCollection(data);
+                worksheet.Cells[2, 1].LoadFromArrays(data.ToArray<object[]>());
+
+                //Save Excel file
+                excel.SaveAs(excelFile);
+            }
+        }
         #endregion Private Methods - WriteExelFile
     }
 }

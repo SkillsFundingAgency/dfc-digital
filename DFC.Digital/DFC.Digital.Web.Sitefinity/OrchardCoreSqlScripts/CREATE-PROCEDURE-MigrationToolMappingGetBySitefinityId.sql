@@ -1,12 +1,13 @@
 USE [dfc-digital-sitefinity]
 GO
 
-/****** Object:  StoredProcedure [dbo].[MigrationToolMappingGetBySitefinityId]    Script Date: 26/01/2022 15:21:28 ******/
+/****** Object:  StoredProcedure [dbo].[MigrationToolMappingGetBySitefinityId]    Script Date: 01/03/2022 21:10:44 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Author:		<Author,,Name>
@@ -22,6 +23,7 @@ BEGIN
 	SELECT [MappingId]
 		  ,[SitefinityId]
 		  ,[OrchardCoreId]
+		  ,[ContentItemVersionId]
 		  ,[ContentType]
 	  FROM [MigrationToolMapping]
 	  WHERE [SitefinityId] = @SitefinityId

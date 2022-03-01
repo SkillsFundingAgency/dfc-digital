@@ -9,7 +9,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.OrchardCore
 {
     public interface IMappingRepository
     {
-        void InsertMigrationMapping(Guid sitefinityId, string orchardCoreId, string contentType);
+        void InsertMigrationMapping(Guid sitefinityId, string orchardCoreId, string contentType, string contentItemVersionId = "");
 
         IEnumerable<MigrationMapping> GetMigrationMappingBySitefinityId(Guid sitefinityId);
     }

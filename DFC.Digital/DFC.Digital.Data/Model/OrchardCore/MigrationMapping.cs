@@ -11,6 +11,7 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public int MappingId { get; set; }
         public Guid SitefinityId { get; set; }
         public string OrchardCoreId { get; set; }
+        public string ContentItemVersionId { get; set; }
         public string ContentType { get; set; }
     }
 }

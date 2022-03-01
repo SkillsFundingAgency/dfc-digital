@@ -826,6 +826,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             {
                 SitefinityId = dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id),
                 ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentItemVersionId = OrchardCoreIdGenerator.GenerateUniqueId(),
                 ContentType = ItemTypes.JobProfile,
                 DisplayText = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title),
                 Latest = true,

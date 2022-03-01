@@ -1068,7 +1068,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 if (IsRirstRun)
                 {
                     // Preserve SitefinityId & OrchardCoreId per JobProfile by storing them in the database
-                    MappingToolRepository.InsertMigrationMapping(jobProfile.SitefinityId, jobProfile.ContentItemId, ItemTypes.JobProfile);
+                    MappingToolRepository.InsertMigrationMapping(jobProfile.SitefinityId, jobProfile.ContentItemId, ItemTypes.JobProfile, jobProfile.ContentItemVersionId);
                 }
 
                 jobProfiles.Add(jobProfile);
@@ -1083,6 +1083,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
                     // Restore original ContentItemId from the first run
                     jobProfiles[i].ContentItemId = GetJobProfileContentItemId(jobProfiles[i].DisplayText, jobProfiles[i].ContentItemId, jobProfiles[i].SitefinityId, ItemTypes.JobProfile);
+
+                    // Restore original ContentItemVersionId from the first run
+                    jobProfiles[i].ContentItemVersionId = GetJobProfileContentItemVersionId(jobProfiles[i].DisplayText, jobProfiles[i].ContentItemId, jobProfiles[i].SitefinityId, ItemTypes.JobProfile);
                 }
 
                 // And then print the recipes for each Jobprofile
@@ -1236,6 +1239,35 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
 
             return contentItemId;
+        }
+
+        private string GetJobProfileContentItemVersionId(string jobProfileDisplayText, string jobProfileContentItemId, Guid sitefinityId, string contentType)
+        {
+            var contentItemVersionId = string.Empty;
+
+            var mappings = MappingToolRepository.GetMigrationMappingBySitefinityId(sitefinityId).ToList();
+            if (mappings != null && mappings?.Count() != 0)
+            {
+                if (mappings.Count() == 1)
+                {
+                    contentItemVersionId = mappings[0].ContentItemVersionId;
+                }
+                else
+                {
+                    contentItemVersionId = mappings.FirstOrDefault().ContentItemVersionId;
+                    ErrorMessage += $"Multiple mappings (ContentItemVersionId) for JP ContentItemId -'{jobProfileDisplayText}'-'{jobProfileContentItemId}', SfId- '{sitefinityId}', JPContentType- '{contentType}': <br /> ";
+                    foreach (var mapping in mappings)
+                    {
+                        ErrorMessage += $"~ OrchardCoreId-'{mapping.OrchardCoreId}' and MappingContentType-'{mapping.ContentType}' <br />";
+                    }
+                }
+            }
+            else
+            {
+                ErrorMessage += $"Could not pull any mappings (ContentItemVersionId) for JP ContentItemId -'{jobProfileDisplayText}'-'{jobProfileContentItemId}', SfId-'{sitefinityId}',  JPContentType- '{contentType}' <br />";
+            }
+
+            return contentItemVersionId;
         }
 
         #endregion Private Methods - DynamicContentTypes - JobProfiles

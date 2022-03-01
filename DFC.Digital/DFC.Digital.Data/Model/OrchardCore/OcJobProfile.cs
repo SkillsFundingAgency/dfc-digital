@@ -13,7 +13,7 @@ namespace DFC.Digital.Data.Model.OrchardCore
         [JsonIgnore]
         public Guid SitefinityId { get; set; }
         public string ContentItemId { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public string ContentItemVersionId { get; set; }
         public string ContentType { get; set; }
         public string DisplayText { get; set; }

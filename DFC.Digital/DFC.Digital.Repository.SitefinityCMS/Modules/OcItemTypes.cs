@@ -17,5 +17,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public const string WorkingPatternDetail = "WorkingPatternDetail";
         public const string WorkingHoursDetail = "WorkingHoursDetail";
         public const string SOCCode = "SOCCode";
+        public const string PersonalityFilteringQuestion = "PersonalityFilteringQuestion";
     }
 }

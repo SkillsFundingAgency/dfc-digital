@@ -227,6 +227,7 @@
     <Compile Include="Model\OrchardCore\OcCollegeLink.cs" />
     <Compile Include="Model\OrchardCore\OcCollegeRequirement.cs" />
     <Compile Include="Model\OrchardCore\OcEnvironment.cs" />
+    <Compile Include="Model\OrchardCore\OcFilteringQuestion.cs" />
     <Compile Include="Model\OrchardCore\OcHiddenAlternativeTitle.cs" />
     <Compile Include="Model\OrchardCore\OcInfoHtml.cs" />
     <Compile Include="Model\OrchardCore\OcJobProfile.cs" />

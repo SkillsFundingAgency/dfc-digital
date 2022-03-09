@@ -39,5 +39,8 @@
         internal const string ConfigurationsModuleName = "Configurations";
         internal const string EmailTemplateContentType = "Telerik.Sitefinity.DynamicTypes.Model.Configurations.Noncitizenemailtemplates";
         internal const string StructuredDataInjectionContentType = "Telerik.Sitefinity.DynamicTypes.Model.Configurations.StructuredDataInjection";
+
+        // Other DYSAC
+        internal const string FilteringQuestionType = "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion";
     }
 }

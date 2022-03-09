@@ -37,6 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
             WorkingHoursDetails = new List<OcWorkingHoursDetail>();
             SocCodes = new List<OcSocCode>();
             JobProfiles = new List<OcJobProfile>();
+            FilteringQuestions = new List<OcFilteringQuestion>();
         }
 
         public List<OcRegistration> Registrations { get; set; }
@@ -85,6 +86,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public List<OcSocCode> SocCodes { get; set; }
 
         public List<OcJobProfile> JobProfiles { get; set; }
+
+        public List<OcFilteringQuestion> FilteringQuestions { get; set; }
 
         public string SelectedItemType { get; set; }
 

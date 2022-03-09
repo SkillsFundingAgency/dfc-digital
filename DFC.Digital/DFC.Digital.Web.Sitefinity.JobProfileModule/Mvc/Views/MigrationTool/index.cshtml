@@ -38,6 +38,8 @@
                 <option value="None">------</option>
                 <option value="JobProfileRCP">JobProfile - RelatedCareerProfiles</option>
                 <option value="JobProfileSkills">JobProfile - RelatedSkills</option>
+                <option value="None">------</option>
+                <option value="FilteringQuestions">Filtering Questions</option>
             </select>
             <input type="submit" value="Submit">
         }
@@ -640,6 +642,31 @@
                             <td>@socCodes.SitefinityId</td>
                             <td>@socCodes.ContentItemId</td>
                             <td>@socCodes.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.FilteringQuestions.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var filteringQuestion in Model.FilteringQuestions)
+                    {
+                        <tr>
+                            <td>@filteringQuestion.SitefinityId</td>
+                            <td>@filteringQuestion.ContentItemId</td>
+                            <td>@filteringQuestion.DisplayText</td>
                         </tr>
                     }
                 </tbody>

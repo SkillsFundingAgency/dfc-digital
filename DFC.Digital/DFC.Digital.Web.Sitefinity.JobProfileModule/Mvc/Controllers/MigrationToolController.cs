@@ -70,6 +70,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Recipe End Single")]
         public string RecipeEndSingle { get; set; } = "]}]}";
 
+        [DisplayName("Recipe Beginning CSharpContent")]
+        public string RecipeBeginningCSharpContent { get; set; } = "{ \"name\": \"PersonalityFilteringQuestion_Draft\", \"displayName\": \"PersonalityFilteringQuestion_Draft\", \"description\": \"\", \"author\": \"\", \"website\": \"\", \"version\": \"\", \"issetuprecipe\": false, \"categories\": [], \"tags\": [], \"steps\": [ { \"name\": \"CSharpContent\", \"data\": ";
+
         [DisplayName("Error Message")]
         public string ErrorMessage { get; set; }
 
@@ -203,6 +206,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     model.JobProfiles = GetJobProfilesSkills();
                     model.ErrorMessage = ErrorMessage;
                     count = model.JobProfiles.Count;
+                    break;
+                case "FilteringQuestions":
+                    model.FilteringQuestions = GetFilteringQuestions();
+                    model.ErrorMessage = ErrorMessage;
+                    count = model.FilteringQuestions.Count;
                     break;
                 default:
                     break;
@@ -1419,5 +1427,18 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
         }
         #endregion Private Methods - WriteExelFile
+
+        #region Private Methods - DynamicContentTypes - FilteringQuestions
+
+        private List<OcFilteringQuestion> GetFilteringQuestions()
+        {
+            var filteringQuestions = dynamicModuleRepository.GetFilteringQuestions().ToList();
+            var jsonData = JsonConvert.SerializeObject(filteringQuestions);
+            var fullPathAndFileName = JsonFilePath + OcItemTypes.PersonalityFilteringQuestion + "-" + filteringQuestions.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginningCSharpContent + jsonData + RecipeEnd);
+            return filteringQuestions;
+        }
+
+        #endregion Private Methods -  - DynamicContentTypes - FilteringQuestions
     }
 }

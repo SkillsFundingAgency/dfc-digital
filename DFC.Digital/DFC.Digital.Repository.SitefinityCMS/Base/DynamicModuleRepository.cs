@@ -13,6 +13,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Data.Linq.Dynamic;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
@@ -1025,6 +1026,116 @@ namespace DFC.Digital.Repository.SitefinityCMS
         }
 
         #endregion JobProfiles
+
+        #region FilteringQuestions
+
+        public IEnumerable<OcFilteringQuestion> GetFilteringQuestions()
+        {
+            var providerName = "dynamicProvider6";
+            DynamicModuleManager dynamicModuleFQManager = DynamicModuleManager.GetManager(providerName);
+            dynamicModuleContentType = TypeResolutionService.ResolveType(DynamicTypes.FilteringQuestionType);
+            var dynamicModuleItems = dynamicModuleFQManager.GetDataItems(dynamicModuleContentType).Where(item => item.Status == ContentLifecycleStatus.Master);
+
+            if (dynamicModuleItems.Any())
+            {
+                var allSSMTitles = new List<string>();
+
+                var providerSSMName = "dynamicProvider2";
+                DynamicModuleManager dynamicModuleSSMManager = DynamicModuleManager.GetManager(providerSSMName);
+                var dynamicModuleSSMContentType = TypeResolutionService.ResolveType(DynamicTypes.SocSkillMatrixContentType);
+                var dynamicModuleSSMItems = dynamicModuleSSMManager.GetDataItems(dynamicModuleSSMContentType).Where(item => item.Status == ContentLifecycleStatus.Master);
+
+                if (dynamicModuleSSMItems.Any())
+                {
+                    foreach (var dynamicModuleSSMItem in dynamicModuleSSMItems)
+                    {
+                        var ssmTitle = dynamicContentExtensions.GetFieldValue<Lstring>(dynamicModuleSSMItem, SitefinityFields.Title);
+                        allSSMTitles.Add(ssmTitle);
+                    }
+                }
+
+                var filteringQuestions = new List<OcFilteringQuestion>();
+                foreach (var dynamicModuleItem in dynamicModuleItems)
+                {
+                    var filteringQuestionTitle = dynamicContentExtensions.GetFieldValue<Lstring>(dynamicModuleItem, SitefinityFields.Title);
+
+                    if (IsDraftFilteringQuestion(filteringQuestionTitle))
+                    {
+                        var relatedSkill = dynamicContentExtensions.GetFilteringQuestionRelatedItemsTitles(dynamicModuleItem, SitefinityFields.RelatedSkill);
+                        var relatedSSMs = allSSMTitles.Where(ssm => ssm.Contains(relatedSkill.FirstOrDefault()));
+                        var relatedSSMTitles = new List<string>();
+
+                        foreach (var relatedSSM in relatedSSMs ?? new List<string>())
+                        {
+                            relatedSSMTitles.Add($"\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"{relatedSSM}\")\u00BB");
+                        }
+
+                        filteringQuestions.Add(ConvertFromToFilteringQuestion(dynamicModuleItem, relatedSSMTitles?.ToList()));
+                    }
+                }
+
+                return filteringQuestions;
+            }
+
+            return Enumerable.Empty<OcFilteringQuestion>();
+        }
+
+        public OcFilteringQuestion ConvertFromToFilteringQuestion(DynamicContent content, List<string> relatedSSMTitles)
+        {
+            //var relatedSkill = dynamicContentExtensions.GetFilteringQuestionRelatedItemsTitles(content, SitefinityFields.RelatedSkill);
+            var filteringQuestion = new OcFilteringQuestion
+            {
+                SitefinityId = dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id),
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentItemVersionId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = OcItemTypes.PersonalityFilteringQuestion,
+                DisplayText = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title),
+                Latest = true,
+                Published = false,
+                ModifiedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.LastModified),
+                PublishedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.PublicationDate),
+                CreatedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.DateCreated),
+                TitlePart = new Titlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title) },
+                PersonalityFilteringQuestion = new Personalityfilteringquestion()
+                {
+                    SOCSkillsMatrix = new Socskillsmatrix() { ContentItemIds = relatedSSMTitles?.ToArray() },
+                    Text = new OcText() { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.QuestionText) },
+                    Info = new OcText() { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Description) }
+                },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/personalityfilteringquestion/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id)}" }
+            };
+
+            return filteringQuestion;
+        }
+
+        public bool IsDraftFilteringQuestion(string filteringQuestionTitle)
+        {
+            var isDraftFilteringQuestion = true;
+            var existingPublishedFilteringQuestions = new List<string>()
+            {
+                "Concern for Others",
+                "Fine Manipulative Abilities",
+                "Adaptability/Flexibility",
+                "Reading Comprehension",
+                "Stress Tolerance",
+                "Verbal Abilities",
+                "Initiative",
+                "Cooperation",
+                "Analytical Thinking",
+                "Speaking, Verbal Abilities",
+                "Quantitative Abilities, Mathematics Knowledge",
+                "Self Control",
+            };
+
+            if (existingPublishedFilteringQuestions.Contains(filteringQuestionTitle, StringComparer.OrdinalIgnoreCase))
+            {
+                isDraftFilteringQuestion = false;
+            }
+
+            return isDraftFilteringQuestion;
+        }
+
+        #endregion FilteringQuestions
 
         [IgnoreOutputInInterception]
         public DynamicContent GetById(string id)

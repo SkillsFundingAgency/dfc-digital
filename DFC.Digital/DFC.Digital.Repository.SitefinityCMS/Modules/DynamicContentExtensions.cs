@@ -67,6 +67,29 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return relatedItemsTitles;
         }
 
+        public IList<string> GetFilteringQuestionRelatedItemsTitles(DynamicContent contentItem, string fieldName)
+        {
+            var relatedItemsTitles = new List<string>();
+            var relatedItems = GetFilteringQuestionRelatedItems(contentItem, fieldName, 20);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    relatedItemsTitles.Add(GetFieldValue<Lstring>(relatedItem, SitefinityFields.Title));
+                }
+            }
+
+            return relatedItemsTitles;
+        }
+
+        public IQueryable<DynamicContent> GetFilteringQuestionRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems)
+        {
+            return contentItem?
+                .GetRelatedItems<DynamicContent>(fieldName)
+                .Where(d => d.Status == ContentLifecycleStatus.Master)
+                .Take(maximumItemsToReturn);
+        }
+
         public IList<string> GetRelatedSOCCodes(DynamicContent contentItem, string fieldName)
         {
             var relatedItemsTitles = new List<string>();

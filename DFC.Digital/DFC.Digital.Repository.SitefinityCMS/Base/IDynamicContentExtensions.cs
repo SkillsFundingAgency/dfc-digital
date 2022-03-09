@@ -28,6 +28,10 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
+        IList<string> GetFilteringQuestionRelatedItemsTitles(DynamicContent contentItem, string fieldName);
+
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
         IList<string> GetRelatedSOCCodes(DynamicContent contentItem, string fieldName);
 
         [IgnoreInputInInterception]

@@ -157,22 +157,22 @@ namespace DFC.Digital.Data.Model.OrchardCore
 
     public class Salarystarterperyear
     {
-        public float Value { get; set; }
+        public float? Value { get; set; }
     }
 
     public class Salaryexperiencedperyear
     {
-        public float Value { get; set; }
+        public float? Value { get; set; }
     }
 
     public class Minimumhours
     {
-        public float Value { get; set; }
+        public float? Value { get; set; }
     }
 
     public class Maximumhours
     {
-        public float Value { get; set; }
+        public float? Value { get; set; }
     }
 
     public class HiddenalternativetitleIds

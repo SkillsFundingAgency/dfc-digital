@@ -1001,7 +1001,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private List<OcJobProfile> GetJobProfiles()
         {
-            IsRirstRun = true;
+            //IsRirstRun = false; // Overides SF setting, if uncommented
             var jobProfiles = new List<OcJobProfile>();
             var jobProfileUrls = dynamicModuleRepository.GetAllJobProfileUrls().OrderBy(jp => jp.Title).ToList();
             int jobProfileUrlsCount = jobProfileUrls.Count();

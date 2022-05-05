@@ -729,6 +729,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             {
                 SitefinityId = dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id),
                 ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentItemVersionId = OrchardCoreIdGenerator.GenerateUniqueId(),
                 ContentType = OcItemTypes.SOCCode,
                 DisplayText = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.SOCCode),
                 Latest = true,
@@ -823,6 +824,15 @@ namespace DFC.Digital.Repository.SitefinityCMS
             var relatedSOC = dynamicContentExtensions.GetRelatedItemsIds(content, SitefinityFields.SOC);
             var relatedRegistrations = dynamicContentExtensions.GetRelatedItemsIds(content, SitefinityFields.RelatedRegistrations);
 
+            // Related SSMs
+            var relatedSSMTitles = dynamicContentExtensions.GetRelatedItemsTitles(content, SitefinityFields.RelatedSkills);
+            var relatedSkillsTitles = new List<string>();
+
+            foreach (var relatedSSM in relatedSSMTitles ?? new List<string>())
+            {
+                relatedSkillsTitles.Add($"\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"{relatedSSM}\")\u00BB");
+            }
+
             var ocJobProfile = new OcJobProfile
             {
                 SitefinityId = dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id),
@@ -890,7 +900,9 @@ namespace DFC.Digital.Repository.SitefinityCMS
                     Relatedrestrictions = new Relatedrestrictions(),
                     Otherrequirements = new Otherrequirements() { Html = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.OtherRequirements) },
                     DigitalSkills = new Digitalskills() { ContentItemIds = GetDigitalSkill(dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(SitefinityFields.DigitalSkillsLevel))) },
-                    Relatedskills = new Relatedskills() { ContentItemIds = new string[] { } },
+
+                    //Relatedskills = new Relatedskills() { ContentItemIds = new string[] { } },
+                    Relatedskills = new Relatedskills() { ContentItemIds = relatedSkillsTitles.ToArray() },
                     JobProfileCategorySf = relatedJobProfileCategories?.ToList(),
                     JobProfileCategory = new JobprofilecategoryIds(),
                     Daytodaytasks = new Daytodaytasks() { Html = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.WYDDayToDayTasks) },
@@ -1065,9 +1077,13 @@ namespace DFC.Digital.Repository.SitefinityCMS
                         var relatedSSMs = allSSMTitles.Where(ssm => ssm.Contains(relatedSkill.FirstOrDefault()));
                         var relatedSSMTitles = new List<string>();
 
-                        foreach (var relatedSSM in relatedSSMs ?? new List<string>())
+                        //foreach (var relatedSSM in relatedSSMs ?? new List<string>())
+                        //{
+                        //    relatedSSMTitles.Add($"\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"{relatedSSM}\")\u00BB");
+                        //}
+                        if (!string.IsNullOrEmpty(relatedSSMs.FirstOrDefault()))
                         {
-                            relatedSSMTitles.Add($"\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"{relatedSSM}\")\u00BB");
+                            relatedSSMTitles.Add($"\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"{relatedSSMs.FirstOrDefault()}\")\u00BB");
                         }
 
                         filteringQuestions.Add(ConvertFromToFilteringQuestion(dynamicModuleItem, relatedSSMTitles?.ToList()));

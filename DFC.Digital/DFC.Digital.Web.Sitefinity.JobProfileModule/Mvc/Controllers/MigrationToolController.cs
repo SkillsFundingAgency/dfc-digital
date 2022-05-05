@@ -968,7 +968,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var jsonData = JsonConvert.SerializeObject(socCodes);
             var jsonSocCodes = JsonConvert.DeserializeObject<List<OcSocCode>>(jsonData);
 
-            int batchSize = 20;
+            int batchSize = 10;
             int numberOfFiles = jsonSocCodes.Count() / batchSize;
 
             for (int idx = 0; idx <= numberOfFiles; idx++)
@@ -1001,7 +1001,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private List<OcJobProfile> GetJobProfiles()
         {
-            //IsRirstRun = false; // Overides SF setting, if uncommented.
+            IsRirstRun = false; // Overides SF setting, if uncommented.
             var jobProfiles = new List<OcJobProfile>();
             var jobProfileUrls = dynamicModuleRepository.GetAllJobProfileUrls().OrderBy(jp => jp.Title).ToList();
             int jobProfileUrlsCount = jobProfileUrls.Count();
@@ -1097,7 +1097,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 }
 
                 // And then print the recipes for each Jobprofile
-                var jsonData = JsonConvert.SerializeObject(jobProfiles[i]);
+                var jsonSerializerSettings = new JsonSerializerSettings
+                {
+                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                };
+                var jsonData = JsonConvert.SerializeObject(jobProfiles[i], jsonSerializerSettings);
                 var fullPathAndFileName = JsonFilePath + "24-" + ItemTypes.JobProfile + $"-{i + 1}-" + jobProfiles[i].DisplayText.Replace(" ", string.Empty) + ".json";
                 System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginningSingle + jsonData + RecipeEndSingle);
             }
@@ -1110,7 +1114,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 var currentJobProfiles = jobProfiles.Skip(idx * batchSize).Take(batchSize).ToList();
 
-                var currentJsonData = JsonConvert.SerializeObject(currentJobProfiles);
+                var jsonSerializerSettings = new JsonSerializerSettings
+                {
+                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                };
+                var currentJsonData = JsonConvert.SerializeObject(currentJobProfiles, jsonSerializerSettings);
 
                 var currentFullPathAndFileName = JsonFilePath + @"JobProfilesSplits\" + "24-" + ItemTypes.JobProfile + $"-{idx + 1}-" + ((idx * batchSize) + currentJobProfiles.Count()) + ".json";
                 System.IO.File.WriteAllText(currentFullPathAndFileName, RecipeBeginning + currentJsonData + RecipeEnd);
@@ -1433,7 +1441,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private List<OcFilteringQuestion> GetFilteringQuestions()
         {
             var filteringQuestions = dynamicModuleRepository.GetFilteringQuestions().ToList();
-            var jsonData = JsonConvert.SerializeObject(filteringQuestions);
+            var jsonSerializerSettings = new JsonSerializerSettings
+            {
+                StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+            };;
+            var jsonData = JsonConvert.SerializeObject(filteringQuestions, jsonSerializerSettings);
             var fullPathAndFileName = JsonFilePath + OcItemTypes.PersonalityFilteringQuestion + "-" + filteringQuestions.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginningCSharpContent + jsonData + RecipeEnd);
             return filteringQuestions;

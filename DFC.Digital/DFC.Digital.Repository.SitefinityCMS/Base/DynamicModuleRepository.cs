@@ -824,15 +824,14 @@ namespace DFC.Digital.Repository.SitefinityCMS
             var relatedSOC = dynamicContentExtensions.GetRelatedItemsIds(content, SitefinityFields.SOC);
             var relatedRegistrations = dynamicContentExtensions.GetRelatedItemsIds(content, SitefinityFields.RelatedRegistrations);
 
-            // Related SSMs
-            var relatedSSMTitles = dynamicContentExtensions.GetRelatedItemsTitles(content, SitefinityFields.RelatedSkills);
-            var relatedSkillsTitles = new List<string>();
+            // RelatedSkills by SSMs Titles
+            //var relatedSSMTitles = dynamicContentExtensions.GetRelatedItemsTitles(content, SitefinityFields.RelatedSkills);
+            //var relatedSkillsTitles = new List<string>();
 
-            foreach (var relatedSSM in relatedSSMTitles ?? new List<string>())
-            {
-                relatedSkillsTitles.Add($"\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"{relatedSSM}\")\u00BB");
-            }
-
+            //foreach (var relatedSSM in relatedSSMTitles ?? new List<string>())
+            //{
+            //    relatedSkillsTitles.Add($"\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"{relatedSSM}\")\u00BB");
+            //}
             var ocJobProfile = new OcJobProfile
             {
                 SitefinityId = dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id),
@@ -901,8 +900,9 @@ namespace DFC.Digital.Repository.SitefinityCMS
                     Otherrequirements = new Otherrequirements() { Html = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.OtherRequirements) },
                     DigitalSkills = new Digitalskills() { ContentItemIds = GetDigitalSkill(dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(SitefinityFields.DigitalSkillsLevel))) },
 
-                    //Relatedskills = new Relatedskills() { ContentItemIds = new string[] { } },
-                    Relatedskills = new Relatedskills() { ContentItemIds = relatedSkillsTitles.ToArray() },
+                    //Relatedskills = new Relatedskills() { ContentItemIds = relatedSkillsTitles.ToArray() },
+                    Relatedskills = new Relatedskills() { ContentItemIds = new string[] { } },
+
                     JobProfileCategorySf = relatedJobProfileCategories?.ToList(),
                     JobProfileCategory = new JobprofilecategoryIds(),
                     Daytodaytasks = new Daytodaytasks() { Html = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.WYDDayToDayTasks) },

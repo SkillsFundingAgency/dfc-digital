@@ -932,7 +932,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
                     DynamicTitlePrefix = new Dynamictitleprefix() { ContentItemIds = GetDynamicTitlePrefix(dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(SitefinityFields.DynamicTitlePrefix))) }
                 },
                 PreviewPart = new Previewpart() { }, //????
-                PageLocationPart = new Pagelocationpart() { UrlName = RemoveSpecialCharacters(dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName).Trim(new char[] { '-' })), DefaultPageForLocation = false, RedirectLocations = null, FullUrl = RemoveSpecialCharacters($"/{dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName).Trim(new char[] { '-' })}") },
+                PageLocationPart = new Pagelocationpart() { UrlName = RemoveSpecialCharacters(dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName)), DefaultPageForLocation = false, RedirectLocations = null, FullUrl = RemoveSpecialCharacters($"/{dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName)}") },
                 SitemapPart = new Sitemappart() { OverrideSitemapConfig = false, ChangeFrequency = 0, Priority = 5, Exclude = false },
                 ContentApprovalPart = new Contentapprovalpart { ReviewStatus = 0, ReviewType = 0, IsForcePublished = false },
                 GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/jobprofile/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.OriginalContentId)}" },

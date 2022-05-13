@@ -1409,7 +1409,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
                 headerRow = new List<string[]>()
                     {
-                       new string[] { "Id", "Title", "SOC Code", "Skill-01", "Skill-02", "Skill-03", "Skill-04", "Skill-05", "Skill-06", "Skill-07", "Skill-08", "Skill-09", "Skill-10", "Skill-11", "Skill-12", "Skill-33", "Skill-14", "Skill-15", "Skill-16", "Skill-17", "Skill-18", "Skill-19", "Skill-20" }
+                       new string[] { "Id", "Title", "SOC Code", "Skill-01", "Skill-02", "Skill-03", "Skill-04", "Skill-05", "Skill-06", "Skill-07", "Skill-08", "Skill-09", "Skill-10", "Skill-11", "Skill-12", "Skill-13", "Skill-14", "Skill-15", "Skill-16", "Skill-17", "Skill-18", "Skill-19", "Skill-20" }
                     };
 
                 // Get the header range
@@ -1444,7 +1444,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var jsonSerializerSettings = new JsonSerializerSettings
             {
                 StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
-            };;
+            };
             var jsonData = JsonConvert.SerializeObject(filteringQuestions, jsonSerializerSettings);
             var fullPathAndFileName = JsonFilePath + OcItemTypes.PersonalityFilteringQuestion + "-" + filteringQuestions.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginningCSharpContent + jsonData + RecipeEnd);

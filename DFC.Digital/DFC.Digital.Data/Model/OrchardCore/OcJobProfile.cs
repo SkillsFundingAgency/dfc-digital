@@ -167,12 +167,12 @@ namespace DFC.Digital.Data.Model.OrchardCore
 
     public class Minimumhours
     {
-        public float? Value { get; set; }
+        public int? Value { get; set; }
     }
 
     public class Maximumhours
     {
-        public float? Value { get; set; }
+        public int? Value { get; set; }
     }
 
     public class HiddenalternativetitleIds

@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.Linq.Dynamic;
@@ -47,6 +48,13 @@ namespace DFC.Digital.Repository.SitefinityCMS
         {
             this.applicationLogger = applicationLogger;
             this.dynamicContentExtensions = dynamicContentExtensions;
+        }
+
+        public static string RemoveSpecialCharacters(string str)
+        {
+            string removableChars = Regex.Escape(@"'()");
+            string pattern = "[" + removableChars + "]";
+            return Regex.Replace(str, pattern, string.Empty, RegexOptions.Compiled);
         }
 
         #region NotImplemented
@@ -852,8 +860,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
                     Overview = new Overview() { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Overview)) },
                     Salarystarterperyear = new Salarystarterperyear() { Value = (float?)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.SalaryStarter)) },
                     Salaryexperiencedperyear = new Salaryexperiencedperyear() { Value = (float?)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.SalaryExperienced)) },
-                    Minimumhours = new Minimumhours() { Value = (float?)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MinimumHours)) },
-                    Maximumhours = new Maximumhours() { Value = (float?)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MaximumHours)) },
+                    Minimumhours = new Minimumhours() { Value = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MinimumHours)) == null ? null : (int?)Math.Round((double)(double?)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MinimumHours)), MidpointRounding.AwayFromZero) },
+                    Maximumhours = new Maximumhours() { Value = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MaximumHours)) == null ? null : (int?)Math.Round((double)(double?)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MaximumHours)), MidpointRounding.AwayFromZero) },
                     HiddenAlternativeTitleSf = relatedHiddenAlternativeTitles?.ToList(),
                     HiddenAlternativeTitle = new HiddenalternativetitleIds(),
                     WorkingHoursDetailsSf = relatedWorkingHoursDetails?.ToList(),
@@ -924,7 +932,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
                     DynamicTitlePrefix = new Dynamictitleprefix() { ContentItemIds = GetDynamicTitlePrefix(dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(SitefinityFields.DynamicTitlePrefix))) }
                 },
                 PreviewPart = new Previewpart() { }, //????
-                PageLocationPart = new Pagelocationpart() { UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName), DefaultPageForLocation = false, RedirectLocations = null, FullUrl = $"/{dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName)}" },
+                PageLocationPart = new Pagelocationpart() { UrlName = RemoveSpecialCharacters(dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName).Trim(new char[] { '-' })), DefaultPageForLocation = false, RedirectLocations = null, FullUrl = RemoveSpecialCharacters($"/{dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.UrlName).Trim(new char[] { '-' })}") },
                 SitemapPart = new Sitemappart() { OverrideSitemapConfig = false, ChangeFrequency = 0, Priority = 5, Exclude = false },
                 ContentApprovalPart = new Contentapprovalpart { ReviewStatus = 0, ReviewType = 0, IsForcePublished = false },
                 GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/jobprofile/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.OriginalContentId)}" },

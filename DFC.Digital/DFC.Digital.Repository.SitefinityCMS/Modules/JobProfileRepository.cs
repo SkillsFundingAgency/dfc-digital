@@ -262,8 +262,9 @@ namespace DFC.Digital.Repository.SitefinityCMS
                     Overview = new Overview() { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Overview)) },
                     Salarystarterperyear = new Salarystarterperyear() { Value = (float)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.SalaryStarter)) },
                     Salaryexperiencedperyear = new Salaryexperiencedperyear() { Value = (float)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.SalaryExperienced)) },
-                    Minimumhours = new Minimumhours() { Value = (float)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MinimumHours)) },
-                    Maximumhours = new Maximumhours() { Value = (float)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MaximumHours)) },
+
+                    //Minimumhours = new Minimumhours() { Value = (float)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MinimumHours)) },
+                    //Maximumhours = new Maximumhours() { Value = (float)dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MaximumHours)) },
                     HiddenAlternativeTitleSf = relatedHiddenAlternativeTitles?.ToList(),
                     HiddenAlternativeTitle = new HiddenalternativetitleIds(),
                     WorkingHoursDetailsSf = relatedWorkingHoursDetails?.ToList(),

@@ -7,6 +7,12 @@
     },
     "storageAccountName": {
       "value": "dfcfoodigstr"
+    },
+    "workspaceName": {
+        "value": "aTestLogAnalyticsAccount"
+    },
+    "workspaceResourceGroup": {
+        "value": "aResourceGroup"
     }
   }
 }

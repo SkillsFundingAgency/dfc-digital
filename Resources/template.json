@@ -74,6 +74,12 @@
       "metadata": {
         "description": "Resource group the App Service Environment belongs to - only required if aseHostingEnvironmentName specified"
       }
+    },
+    "workspaceName": {
+        "type": "string"
+    },
+    "workspaceResourceGroup": {
+        "type": "string"
     }
   },
   "variables": {
@@ -102,6 +108,12 @@
           },
           "attachedService": {
             "value": "[variables('appServiceName')]"
+          },
+          "workspaceName": {
+              "value": "[parameters('workspaceName')]"
+          },
+          "workspaceResourceGroup": {
+              "value": "[parameters('workspaceResourceGroup')]"
           }
         }
       }
